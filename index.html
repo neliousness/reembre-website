@@ -5,11 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reembr: Leave the place. Not your things.</title>
     <meta name="description" content="Reembr brings up the right checklist the moment you head out, so your keys, wallet, and charger are sorted before the door clicks shut. Private and on-device." />
+    <link rel="canonical" href="https://reembr.app/" />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#fbf8f3" />
+
+    <!-- Icons (the app's ember "R" mark) -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Reembr" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reembr.app/" />
     <meta property="og:title" content="Reembr: Leave the place. Not your things." />
     <meta property="og:description" content="The warm, private leaving checklist that pops up the moment you head out." />
-    <meta property="og:type" content="website" />
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <meta property="og:image" content="https://reembr.app/og-image.png" />
+    <meta property="og:image:secure_url" content="https://reembr.app/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="Reembr — the private leaving checklist" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reembr: Leave the place. Not your things." />
+    <meta name="twitter:description" content="The warm, private leaving checklist that pops up the moment you head out." />
+    <meta name="twitter:image" content="https://reembr.app/og-image.png" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Reembr",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS",
+        "url": "https://reembr.app/",
+        "image": "https://reembr.app/og-image.png",
+        "description": "Reembr brings up the right checklist the moment you head out, so your keys, wallet, and charger are sorted before the door clicks shut. Private and on-device.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
@@ -42,11 +81,11 @@
         <span class="site-logo__word">reembr</span>
       </a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="#how">How it works</a>
-        <a href="#try">Try it</a>
-        <a href="#privacy">Privacy</a>
+        <a href="#how" data-track="nav_how">How it works</a>
+        <a href="#try" data-track="nav_try">Try it</a>
+        <a href="#privacy" data-track="nav_privacy">Privacy</a>
       </nav>
-      <a class="site-header__button" href="#download" data-squish>
+      <a class="site-header__button" href="#download" data-squish data-track="header_cta">
         <span class="only-live">Get the app</span>
         <span class="only-waitlist">Join the waitlist</span>
         <span class="only-beta">Join the beta</span>
@@ -231,8 +270,8 @@
                   </div>
                   <h3>Leaving Home?</h3>
                   <p>Quick check of your 3-item list before you head out?</p>
-                  <button class="btn-primary" type="button" data-start>Let me check</button>
-                  <button class="btn-text" type="button" data-notnow>Not now</button>
+                  <button class="btn-primary" type="button" data-start data-track="demo_start">Let me check</button>
+                  <button class="btn-text" type="button" data-notnow data-track="demo_not_now">Not now</button>
                 </div>
 
                 <div class="stage stage--running" hidden>
@@ -252,7 +291,7 @@
                       <b>Charger</b>
                     </button>
                   </div>
-                  <button class="btn-primary" type="button" data-complete disabled>Mark as done</button>
+                  <button class="btn-primary" type="button" data-complete disabled data-track="demo_complete">Mark as done</button>
                 </div>
 
                 <div class="stage stage--done" hidden>
@@ -261,7 +300,7 @@
                   </div>
                   <h3>You&rsquo;re all set</h3>
                   <p>Have a great trip out of Home.</p>
-                  <button class="btn-primary" type="button" data-close>Done</button>
+                  <button class="btn-primary" type="button" data-close data-track="demo_done">Done</button>
                 </div>
               </div>
               <div class="confetti-host" aria-hidden="true"></div>
@@ -323,7 +362,7 @@
             <p class="waitlist__status" data-waitlist-status role="status" aria-live="polite"></p>
           </form>
         </div>
-        <button class="confetti-btn" type="button" data-squish>One more time</button>
+        <button class="confetti-btn" type="button" data-squish data-track="confetti_again">One more time</button>
         <div class="download__confetti" aria-hidden="true"></div>
       </section>
     </main>
@@ -335,10 +374,102 @@
       </a>
       <p>For everyone who has ever done the doorway pat-down. &copy; 2026 Reembr.</p>
       <nav aria-label="Footer">
-        <a href="#">Privacy</a>
-        <a href="#">Support</a>
+        <button type="button" class="footer__link" data-open-modal="privacy" data-track="footer_privacy">Privacy</button>
+        <button type="button" class="footer__link" data-open-modal="support" data-track="footer_support">Support</button>
       </nav>
     </footer>
+
+    <!-- ================= SUPPORT MODAL ================= -->
+    <div class="modal" id="modal-support" hidden>
+      <div class="modal__backdrop" data-close-modal></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="support-title">
+        <button class="modal__close" type="button" data-close-modal aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+        <h2 class="modal__title" id="support-title">Contact support</h2>
+        <p class="modal__intro">Tell us what&rsquo;s going on and we&rsquo;ll take a look.</p>
+        <form class="form" data-support-form novalidate>
+          <label class="field">
+            <span class="field__label">Topic</span>
+            <select class="field__control" name="topic" required>
+              <option value="" disabled selected>Choose a topic&hellip;</option>
+              <option value="technical_issue">Technical issue</option>
+              <option value="account">Account</option>
+              <option value="billing">Billing</option>
+              <option value="feature_request">Feature request</option>
+              <option value="complaint">Complaint</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Email <em>so we can reply</em></span>
+            <input class="field__control" type="email" name="email" placeholder="you@email.com" autocomplete="email" />
+          </label>
+          <label class="field">
+            <span class="field__label">Message</span>
+            <textarea class="field__control" name="message" rows="5" required placeholder="What&rsquo;s happening, or what would you like to see?"></textarea>
+          </label>
+          <button class="btn-primary form__submit" type="submit" data-squish>Send message</button>
+          <p class="form__status" data-support-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= PRIVACY MODAL ================= -->
+    <div class="modal" id="modal-privacy" hidden>
+      <div class="modal__backdrop" data-close-modal></div>
+      <div class="modal__dialog modal__dialog--tall" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+        <button class="modal__close" type="button" data-close-modal aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+        <h2 class="modal__title" id="privacy-title">Privacy policy</h2>
+        <div class="modal__scroll policy">
+          <p class="policy__meta">Last updated July 2026 &middot; Applies to the Reembr website and app.</p>
+
+          <h3>Summary</h3>
+          <p>Reembr is built so that where your places are, and the checks that notice when you leave, stay on your phone. This website is a marketing site: it collects only what you choose to send us &mdash; a waitlist email or a support message &mdash; plus basic, privacy-respecting usage analytics.</p>
+
+          <h3>The app: data on your device</h3>
+          <p>The app stores your saved places and their names, where they are, their reminder areas, whether they&rsquo;re switched on, availability schedules, linked checklists, reminder preferences, and app settings &mdash; all on your device.</p>
+
+          <h3>The app: data synced with your account</h3>
+          <p>If you sign in, we may store a sign-in ID, your email, display name, profile photo, sign-in methods, plan status, checklist templates, checklist items, and safe app settings. Where your places are, where you&rsquo;ve been, and your comings and goings never sync.</p>
+
+          <h3>The app: location data</h3>
+          <p>In this release we do not store where your places are, their reminder areas, your location readings, or your comings and goings on our servers. Location permission is used on your device to help decide when to show a reminder.</p>
+
+          <h3>This website: waitlist &amp; beta sign-ups</h3>
+          <p>When you join the waitlist or ask to be notified about the Android beta, we store the email address you enter (and which button it came from) so we can email you at launch. We don&rsquo;t sell it or use it for unrelated marketing.</p>
+
+          <h3>This website: support messages</h3>
+          <p>When you use the support form, we receive the topic, the message you write, and &mdash; if you provide one &mdash; your email address, so we can reply. Please don&rsquo;t include sensitive personal information you don&rsquo;t want us to hold.</p>
+
+          <h3>This website: analytics &amp; cookies</h3>
+          <p>We use Google Analytics and Firebase Analytics to understand which parts of the site people use (for example, which buttons get pressed) so we can improve it. These set cookies or similar identifiers and collect standard technical data like device type, approximate region, and pages viewed. We don&rsquo;t use them to identify you personally.</p>
+
+          <h3>Notifications</h3>
+          <p>In the app, notifications remind you to run a checklist. Delivery depends on your device, operating system, permissions, and battery settings.</p>
+
+          <h3>Payments</h3>
+          <p>If you buy a paid plan, payment details are handled by the payment provider. We may receive plan status, subscription identifiers, renewal state, and entitlement information. We do not receive full card details.</p>
+
+          <h3>Data retention</h3>
+          <p>Local app data stays on your device until you delete it, uninstall, or clear app data. Waitlist emails, support messages, and account data are kept while they&rsquo;re useful for the purpose collected or as needed for legal, billing, security, and operational reasons.</p>
+
+          <h3>Your choices</h3>
+          <p>You can change notification and location permissions in system settings, edit or delete places and checklists in the app, and ask us to remove your waitlist email or support message via the support form. You can limit analytics through your browser settings or an ad/analytics blocker.</p>
+
+          <h3>Children</h3>
+          <p>Reembr is not intended for children under the age required to use online account services in their region.</p>
+
+          <h3>Changes</h3>
+          <p>We may update this policy as the product changes. If a change materially affects how location-related data is handled, we&rsquo;ll provide clear notice in the app.</p>
+
+          <h3>Contact</h3>
+          <p>For privacy questions, use the support form on this site or the support option in the app.</p>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>

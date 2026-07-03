@@ -5,6 +5,7 @@ import { Draggable } from 'gsap/Draggable';
 import Lenis from 'lenis';
 import { createWorld } from './world.js';
 import { initializeFirebase, trackFirebaseEvent } from './firebase.js';
+import { resolveSupportEndpoint, validateSupportFields } from './support-form.js';
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -40,6 +41,19 @@ document.querySelectorAll('[data-analytics-event]').forEach((element) => {
     });
   });
 });
+
+// Delegated UI-click logging: anything tagged with data-track logs a
+// `ui_click` (with its label) to analytics — incl. Firebase via trackEvent —
+// so we can see what people actually press. Works for elements added later.
+document.addEventListener(
+  'click',
+  (event) => {
+    const el = event.target.closest('[data-track]');
+    if (!el) return;
+    trackEvent('ui_click', { element: el.dataset.track });
+  },
+  { passive: true },
+);
 
 /* ---------------- waitlist ---------------- */
 // Where signups land. Swap via VITE_WAITLIST_ENDPOINT — own backend
@@ -117,6 +131,99 @@ document.querySelectorAll('[data-beta-cta]').forEach((cta) => {
     });
   }
 });
+
+/* ---------------- modals (support + privacy) ---------------- */
+let lastFocusedBeforeModal = null;
+function openModal(name) {
+  const modal = document.getElementById(`modal-${name}`);
+  if (!modal) return;
+  lastFocusedBeforeModal = document.activeElement;
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  window.lenis?.stop();
+  trackEvent('modal_opened', { modal: name });
+  modal.querySelector('select, input, textarea, button:not([data-close-modal])')?.focus();
+}
+function closeModal(modal) {
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.style.overflow = '';
+  window.lenis?.start();
+  lastFocusedBeforeModal?.focus?.();
+}
+document.querySelectorAll('[data-open-modal]').forEach((btn) => {
+  btn.addEventListener('click', () => openModal(btn.dataset.openModal));
+});
+document.querySelectorAll('[data-close-modal]').forEach((el) => {
+  el.addEventListener('click', () => closeModal(el.closest('.modal')));
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  const open = document.querySelector('.modal:not([hidden])');
+  if (open) closeModal(open);
+});
+
+/* ---------------- support form ---------------- */
+// Shares the site's waitlist key; support lives at /api/support.
+const supportEndpoint = resolveSupportEndpoint({
+  supportEndpoint: import.meta.env.VITE_SUPPORT_ENDPOINT || '',
+  waitlistEndpoint,
+});
+
+const supportForm = document.querySelector('[data-support-form]');
+if (supportForm) {
+  const status = supportForm.querySelector('[data-support-status]');
+  const button = supportForm.querySelector('button[type="submit"]');
+  const setStatus = (message, kind) => {
+    status.textContent = message;
+    if (kind) status.dataset.kind = kind;
+    else delete status.dataset.kind;
+  };
+
+  supportForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const topic = supportForm.topic.value;
+    const email = supportForm.email.value.trim();
+    const message = supportForm.message.value.trim();
+    const validation = validateSupportFields({ topic, message });
+
+    if (!validation.ok) {
+      setStatus(validation.message, 'error');
+      supportForm[validation.field]?.focus();
+      return;
+    }
+
+    button.disabled = true;
+    setStatus('Sending…', 'pending');
+    trackEvent('support_submitted', { topic });
+
+    try {
+      if (supportEndpoint) {
+        const response = await fetch(supportEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(waitlistApiKey ? { 'X-API-Key': waitlistApiKey } : {}),
+          },
+          body: JSON.stringify({ topic, email, message }),
+        });
+        if (!response.ok) {
+          const payload = await response.json().catch(() => null);
+          throw new Error(payload?.error?.message || `HTTP ${response.status}`);
+        }
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 400));
+      }
+      supportForm.reset();
+      setStatus("Thanks — we got your message and will take a look.", 'success');
+      trackEvent('support_succeeded', { topic });
+    } catch (error) {
+      button.disabled = false;
+      setStatus('Something went wrong — try again in a sec.', 'error');
+      trackEvent('support_failed', { topic, message: String(error) });
+    }
+  });
+}
 
 /* ---------------- smooth scroll + anchors ---------------- */
 let lenis = null;
