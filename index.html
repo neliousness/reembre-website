@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en" data-launch="%VITE_LAUNCH_MODE%">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reembr: Leave the place. Not your things.</title>
+    <meta name="description" content="Reembr brings up the right checklist the moment you head out, so your keys, wallet, and charger are sorted before the door clicks shut. Private and on-device." />
+    <meta name="theme-color" content="#fbf8f3" />
+    <meta property="og:title" content="Reembr: Leave the place. Not your things." />
+    <meta property="og:description" content="The warm, private leaving checklist that pops up the moment you head out." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Line-icon sprite (stroke icons, matching the app's icon language) -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 2.5 2.5L21 6.5 18.5 4"/></symbol>
+        <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+        <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+        <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+        <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+        <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M22 12a10.06 10.06 0 0 0-20 0Z"/><path d="M12 12v8a2 2 0 0 0 4 0"/><path d="M12 2v1"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+        <symbol id="i-passport" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></symbol>
+        <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></symbol>
+        <symbol id="i-laptop" viewBox="0 0 24 24"><rect width="18" height="12" x="3" y="4" rx="2"/><line x1="2" x2="22" y1="20" y2="20"/></symbol>
+        <symbol id="i-badge" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.2 15a3 3 0 0 1 5.6 0"/><circle cx="9" cy="11" r="2"/></symbol>
+        <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      </defs>
+    </svg>
+
+    <canvas id="scene" aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="site-logo" href="#top" data-squish aria-label="Reembr home">
+        <img class="site-logo__mark" src="./logo.svg" alt="" width="31" height="30" />
+        <span class="site-logo__word">reembr</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#try">Try it</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+      <a class="site-header__button" href="#download" data-squish>
+        <span class="only-live">Get the app</span>
+        <span class="only-waitlist">Join the waitlist</span>
+        <span class="only-beta">Join the beta</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <!-- ================= HERO ================= -->
+      <section class="hero">
+        <div class="hero__chips" aria-hidden="true">
+          <button class="chip" data-chip style="--x: 11%; --y: 22%; --r: -8deg"><svg class="ico"><use href="#i-key"/></svg>keys</button>
+          <button class="chip" data-chip style="--x: 85%; --y: 18%; --r: 6deg"><svg class="ico"><use href="#i-wallet"/></svg>wallet</button>
+          <button class="chip" data-chip style="--x: 8%;  --y: 56%; --r: 5deg"><svg class="ico"><use href="#i-zap"/></svg>charger</button>
+          <button class="chip" data-chip style="--x: 87%; --y: 60%; --r: -5deg"><svg class="ico"><use href="#i-headphones"/></svg>headphones</button>
+          <button class="chip" data-chip style="--x: 18%; --y: 82%; --r: -4deg"><svg class="ico"><use href="#i-bag"/></svg>gym bag</button>
+          <button class="chip" data-chip style="--x: 80%; --y: 84%; --r: 7deg"><svg class="ico"><use href="#i-umbrella"/></svg>umbrella</button>
+        </div>
+
+        <div class="hero__copy">
+          <p class="hero__hello" data-intro><i class="hello-dot"></i>Say goodbye to the doorway pat-down</p>
+          <h1>
+            <span class="h1-line" data-bounce>Leave the place.</span>
+            <span class="h1-line h1-line--accent" data-bounce>Not your things.</span>
+          </h1>
+          <p class="hero__text" data-intro>
+            Reembr knows the moment you head out and brings up the right checklist,
+            so your keys, wallet, and charger are sorted before the door clicks shut.
+          </p>
+          <div class="store-row only-live" data-intro>
+            <a class="store store--apple" href="#" data-squish data-analytics-event="download_cta_clicked" data-analytics-surface="hero" data-analytics-store="app_store" aria-label="Download on the App Store">
+              <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+              <span><small>Download on the</small><strong>App Store</strong></span>
+            </a>
+            <div class="store store--soon" aria-label="Google Play coming soon">
+              <svg viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M325.3 234.3 104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+              <span><small>Google Play</small><strong>Coming soon</strong></span>
+            </div>
+          </div>
+          <form class="waitlist only-waitlist" data-waitlist data-surface="hero" data-intro novalidate>
+            <div class="waitlist__row">
+              <input class="waitlist__input" type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email address" />
+              <button class="waitlist__btn" type="submit" data-squish>Join the waitlist</button>
+            </div>
+            <p class="waitlist__status" data-waitlist-status role="status" aria-live="polite"></p>
+          </form>
+          <div class="beta only-beta" data-intro>
+            <div class="beta__primary">
+              <a class="beta__ios" href="%VITE_BETA_URL%" target="_blank" rel="noopener" data-beta-cta data-squish data-analytics-event="beta_cta_clicked" data-analytics-surface="hero" aria-label="Join the beta on iOS via TestFlight">
+                <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                <span>Join the beta on iOS</span>
+              </a>
+              <p class="beta__hint">Free &middot; installs through TestFlight</p>
+            </div>
+            <form class="waitlist waitlist--beta" data-waitlist data-surface="hero" data-platform="android" novalidate>
+              <p class="waitlist__label">On Android? <b>Get notified</b> when the beta lands.</p>
+              <div class="waitlist__row">
+                <input class="waitlist__input" type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email address for Android beta notification" />
+                <button class="waitlist__btn" type="submit" data-squish>Notify me</button>
+              </div>
+              <p class="waitlist__status" data-waitlist-status role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <p class="hero__meta" data-intro><span class="only-live">Free at launch &nbsp;·&nbsp; iPhone first &nbsp;·&nbsp; your location stays in your pocket</span><span class="only-waitlist">iPhone first &nbsp;·&nbsp; one email at launch &nbsp;·&nbsp; your location stays in your pocket</span><span class="only-beta">iOS beta now &nbsp;·&nbsp; Android soon &nbsp;·&nbsp; your location stays in your pocket</span></p>
+          <p class="hero__hint" data-intro>psst, the floating things are grabbable</p>
+        </div>
+      </section>
+
+      <!-- ================= MARQUEE ================= -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <i><svg class="ico"><use href="#i-key"/></svg>keys</i><b>·</b><i><svg class="ico"><use href="#i-wallet"/></svg>wallet</i><b>·</b><i><svg class="ico"><use href="#i-phone"/></svg>phone</i><b>·</b><i><svg class="ico"><use href="#i-zap"/></svg>charger</i><b>·</b><i><svg class="ico"><use href="#i-bag"/></svg>gym bag</i><b>·</b><i><svg class="ico"><use href="#i-passport"/></svg>passport</i><b>·</b><i><svg class="ico"><use href="#i-coffee"/></svg>lunch</i><b>·</b><i><svg class="ico"><use href="#i-umbrella"/></svg>umbrella</i><b>·</b><i><svg class="ico"><use href="#i-laptop"/></svg>laptop</i><b>·</b><i><svg class="ico"><use href="#i-badge"/></svg>badge</i><b>·</b><i><svg class="ico"><use href="#i-headphones"/></svg>headphones</i><b>·</b><i><svg class="ico"><use href="#i-pill"/></svg>meds</i><b>·</b>
+          <i><svg class="ico"><use href="#i-key"/></svg>keys</i><b>·</b><i><svg class="ico"><use href="#i-wallet"/></svg>wallet</i><b>·</b><i><svg class="ico"><use href="#i-phone"/></svg>phone</i><b>·</b><i><svg class="ico"><use href="#i-zap"/></svg>charger</i><b>·</b><i><svg class="ico"><use href="#i-bag"/></svg>gym bag</i><b>·</b><i><svg class="ico"><use href="#i-passport"/></svg>passport</i><b>·</b><i><svg class="ico"><use href="#i-coffee"/></svg>lunch</i><b>·</b><i><svg class="ico"><use href="#i-umbrella"/></svg>umbrella</i><b>·</b><i><svg class="ico"><use href="#i-laptop"/></svg>laptop</i><b>·</b><i><svg class="ico"><use href="#i-badge"/></svg>badge</i><b>·</b><i><svg class="ico"><use href="#i-headphones"/></svg>headphones</i><b>·</b><i><svg class="ico"><use href="#i-pill"/></svg>meds</i><b>·</b>
+        </div>
+      </div>
+
+      <!-- ================= HOW IT WORKS ================= -->
+      <section class="how" id="how">
+        <h2 class="section-title"><span data-bounce>It does the remembering.</span></h2>
+        <p class="section-sub">Three steps. Zero discipline required.</p>
+        <div class="how__grid">
+          <article class="card" data-pop style="--tilt: -1.2deg">
+            <span class="card__badge">01</span>
+            <div class="card__art card__art--map">
+              <svg viewBox="0 0 300 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <rect width="300" height="180" rx="20" fill="#ded5c6" />
+                <path d="M-10 70 C 80 58, 200 84, 310 64" stroke="#cfc4b0" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.6" />
+                <path d="M110 -10 C 122 60, 96 130, 118 190" stroke="#cfc4b0" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.5" />
+                <rect x="26" y="22" width="48" height="34" rx="9" fill="#fbf8f3" opacity="0.55" />
+                <rect x="228" y="116" width="50" height="36" rx="9" fill="#fbf8f3" opacity="0.55" />
+                <circle cx="150" cy="92" r="56" fill="rgba(215,114,38,0.07)" stroke="#d77226" stroke-width="2.4" stroke-dasharray="6 5" />
+              </svg>
+              <div class="marker marker--mini" aria-hidden="true">
+                <i class="marker__shadow"></i>
+                <div class="marker__body">
+                  <i class="marker__glow"></i>
+                  <i class="marker__stem"></i>
+                  <i class="marker__head"></i>
+                  <i class="marker__dot"></i>
+                </div>
+              </div>
+            </div>
+            <h3>Pin your spots</h3>
+            <p>Home, gym, office, your mom&rsquo;s place. Anywhere things get left behind gets a pin and a perimeter.</p>
+          </article>
+
+          <article class="card" data-pop style="--tilt: 1.4deg">
+            <span class="card__badge">02</span>
+            <div class="card__art card__art--pulse">
+              <i class="pulse-ring"></i>
+              <i class="pulse-ring pulse-ring--late"></i>
+              <i class="pulse-walker"></i>
+            </div>
+            <h3>We watch the door</h3>
+            <p>Step past the edge and Reembr notices. No tapping, no opening the app, no &ldquo;wait, did I set it?&rdquo;</p>
+          </article>
+
+          <article class="card" data-pop style="--tilt: -1deg">
+            <span class="card__badge">03</span>
+            <div class="card__art card__art--note">
+              <div class="mini-note">
+                <div class="mini-note__top"><b>reembr</b><span>now</span></div>
+                <h4>Leaving Home?</h4>
+                <p>Keys · Wallet · Charger</p>
+              </div>
+            </div>
+            <h3>Tap, check, go</h3>
+            <p>The right list shows up. Check it off, grab your confetti, catch your train.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= TRY IT (interactive phone) ================= -->
+      <section class="try" id="try">
+        <div class="try__copy">
+          <h2 class="section-title"><span data-bounce>Go on, try it.</span></h2>
+          <p class="section-sub">This is the actual flow from the app. Not a video, not a mockup. Tap the list.</p>
+          <span class="sticker" data-pop>It really works</span>
+        </div>
+
+        <div class="try__phone" data-pop>
+          <div class="phone-tilt">
+            <div class="app-frame">
+              <div class="app-statusbar" aria-hidden="true"><span>9:41</span><i></i></div>
+              <div class="app-map" aria-hidden="true">
+                <svg viewBox="0 0 390 560" preserveAspectRatio="xMidYMid slice">
+                  <rect width="390" height="560" fill="#ded5c6" />
+                  <g stroke="#cfc4b0" stroke-linecap="round" fill="none">
+                    <path d="M-20 150 C 90 130, 210 170, 410 140" stroke-width="14" opacity="0.55" />
+                    <path d="M-20 330 C 120 312, 260 352, 410 326" stroke-width="18" opacity="0.6" />
+                    <path d="M120 -20 C 138 140, 96 360, 128 580" stroke-width="14" opacity="0.5" />
+                    <path d="M278 -20 C 262 170, 300 400, 282 580" stroke-width="12" opacity="0.45" />
+                  </g>
+                  <g fill="#fbf8f3" opacity="0.5">
+                    <rect x="30" y="40" width="64" height="46" rx="12" />
+                    <rect x="160" y="60" width="84" height="52" rx="12" />
+                    <rect x="310" y="44" width="56" height="60" rx="12" />
+                    <rect x="36" y="210" width="58" height="72" rx="12" />
+                    <rect x="306" y="206" width="60" height="66" rx="12" />
+                    <rect x="40" y="400" width="70" height="56" rx="12" />
+                  </g>
+                  <circle cx="195" cy="236" r="104" fill="rgba(215,114,38,0.06)" stroke="#d77226" stroke-width="2.4" stroke-dasharray="7 6" />
+                </svg>
+                <div class="marker" aria-hidden="true">
+                  <i class="marker__sonar"></i>
+                  <i class="marker__sonar marker__sonar--late"></i>
+                  <i class="marker__shadow"></i>
+                  <div class="marker__body">
+                    <i class="marker__glow"></i>
+                    <i class="marker__stem"></i>
+                    <i class="marker__head"></i>
+                    <i class="marker__dot"><b></b></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sheet" data-stage="prompt">
+                <div class="sheet__handle"></div>
+
+                <div class="stage stage--prompt">
+                  <div class="hero-circle">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9 7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+                  </div>
+                  <h3>Leaving Home?</h3>
+                  <p>Quick check of your 3-item list before you head out?</p>
+                  <button class="btn-primary" type="button" data-start>Let me check</button>
+                  <button class="btn-text" type="button" data-notnow>Not now</button>
+                </div>
+
+                <div class="stage stage--running" hidden>
+                  <h3>Tap to check off</h3>
+                  <p class="stage__counter" data-counter>0 of 3</p>
+                  <div class="stage__rows">
+                    <button class="check-row" type="button" data-item>
+                      <span class="check-row__box"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                      <b>Keys</b>
+                    </button>
+                    <button class="check-row" type="button" data-item>
+                      <span class="check-row__box"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                      <b>Wallet</b>
+                    </button>
+                    <button class="check-row" type="button" data-item>
+                      <span class="check-row__box"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                      <b>Charger</b>
+                    </button>
+                  </div>
+                  <button class="btn-primary" type="button" data-complete disabled>Mark as done</button>
+                </div>
+
+                <div class="stage stage--done" hidden>
+                  <div class="hero-circle">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5 10 18 19.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <h3>You&rsquo;re all set</h3>
+                  <p>Have a great trip out of Home.</p>
+                  <button class="btn-primary" type="button" data-close>Done</button>
+                </div>
+              </div>
+              <div class="confetti-host" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PRIVACY (ember block) ================= -->
+      <section class="privacy" id="privacy">
+        <div class="privacy__inner">
+          <span class="privacy__lock" data-pop><svg class="ico"><use href="#i-lock"/></svg></span>
+          <h2><span data-bounce>Your location never leaves your phone.</span></h2>
+          <p>Geofencing runs entirely on-device. No servers peeking, nothing to sell, nothing to leak. The map stays in your pocket, where it belongs.</p>
+          <div class="privacy__pills">
+            <span class="pill" data-pop><strong>0</strong> coordinates shared</span>
+            <span class="pill" data-pop><strong>100%</strong> on-device detection</span>
+            <span class="pill" data-pop><strong>1</strong> place it lives: your pocket</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DOWNLOAD ================= -->
+      <section class="download" id="download">
+        <h2 class="download__title"><span data-bounce>Forget</span> <span class="accent" data-bounce>forgetting.</span></h2>
+        <p class="section-sub"><span class="only-live">Free at launch. Your keys will thank you.</span><span class="only-waitlist">Free at launch. Get on the list and your keys will thank you first.</span><span class="only-beta">The beta&rsquo;s open on iOS. Come kick the tires.</span></p>
+        <div class="store-row store-row--center only-live">
+          <a class="store store--apple" href="#" data-squish data-analytics-event="download_cta_clicked" data-analytics-surface="download" data-analytics-store="app_store" aria-label="Download on the App Store">
+            <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span><small>Download on the</small><strong>App Store</strong></span>
+          </a>
+          <div class="store store--soon" aria-label="Google Play coming soon">
+            <svg viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M325.3 234.3 104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+            <span><small>Google Play</small><strong>Coming soon</strong></span>
+          </div>
+        </div>
+        <form class="waitlist waitlist--center only-waitlist" data-waitlist data-surface="download" novalidate>
+          <div class="waitlist__row">
+            <input class="waitlist__input" type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email address" />
+            <button class="waitlist__btn" type="submit" data-squish>Join the waitlist</button>
+          </div>
+          <p class="waitlist__note">No spam — just one email the day Reembr lands on the App Store.</p>
+          <p class="waitlist__status" data-waitlist-status role="status" aria-live="polite"></p>
+        </form>
+        <div class="beta only-beta">
+          <div class="beta__primary">
+            <a class="beta__ios" href="%VITE_BETA_URL%" target="_blank" rel="noopener" data-beta-cta data-squish data-analytics-event="beta_cta_clicked" data-analytics-surface="download" aria-label="Join the beta on iOS via TestFlight">
+              <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+              <span>Join the beta on iOS</span>
+            </a>
+            <p class="beta__hint">Free &middot; installs through TestFlight</p>
+          </div>
+          <form class="waitlist waitlist--beta waitlist--center" data-waitlist data-surface="download" data-platform="android" novalidate>
+            <p class="waitlist__label">On Android? <b>Get notified</b> when the beta lands.</p>
+            <div class="waitlist__row">
+              <input class="waitlist__input" type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email address for Android beta notification" />
+              <button class="waitlist__btn" type="submit" data-squish>Notify me</button>
+            </div>
+            <p class="waitlist__status" data-waitlist-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <button class="confetti-btn" type="button" data-squish>One more time</button>
+        <div class="download__confetti" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="site-logo" href="#top" aria-label="Reembr home">
+        <img class="site-logo__mark" src="./logo.svg" alt="" width="27" height="26" />
+        <span class="site-logo__word">reembr</span>
+      </a>
+      <p>For everyone who has ever done the doorway pat-down. &copy; 2026 Reembr.</p>
+      <nav aria-label="Footer">
+        <a href="#">Privacy</a>
+        <a href="#">Support</a>
+      </nav>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
