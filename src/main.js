@@ -46,6 +46,10 @@ document.querySelectorAll('[data-analytics-event]').forEach((element) => {
 // (e.g. /api/waitlist) or a third-party form URL. Left unset, the form
 // works as a no-op success so the page is still demoable in dev.
 const waitlistEndpoint = import.meta.env.VITE_WAITLIST_ENDPOINT || '';
+// Dedicated anti-abuse key for the signup endpoint. Sent as X-API-Key. This is
+// baked into the public bundle by design — it only filters casual bots and is
+// separate from the mobile app's key.
+const waitlistApiKey = import.meta.env.VITE_WAITLIST_API_KEY || '';
 
 document.querySelectorAll('[data-waitlist]').forEach((form) => {
   const input = form.querySelector('input[name="email"]');
@@ -77,7 +81,10 @@ document.querySelectorAll('[data-waitlist]').forEach((form) => {
       if (waitlistEndpoint) {
         const response = await fetch(waitlistEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            ...(waitlistApiKey ? { 'X-API-Key': waitlistApiKey } : {}),
+          },
           body: JSON.stringify({ email, surface, platform }),
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
