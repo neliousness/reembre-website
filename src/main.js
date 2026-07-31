@@ -431,35 +431,13 @@ if (phoneTilt && finePointer && !reduced) {
    ===================================================================== */
 const CONFETTI = ['#d77226', '#f4a024', '#f7c272', '#fde2b6', '#e69a66'];
 
-function confettiBurst(host, { count = 30, spread = 130, fall = 130 } = {}) {
-  for (let i = 0; i < count; i += 1) {
-    const piece = document.createElement('b');
-    piece.style.background = CONFETTI[i % CONFETTI.length];
-    host.appendChild(piece);
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 70 + Math.random() * spread;
-    gsap.fromTo(
-      piece,
-      { x: 0, y: 0, scale: 1, opacity: 1, rotation: 0 },
-      {
-        x: Math.cos(angle) * distance,
-        y: Math.sin(angle) * distance * 0.7 + fall,
-        rotation: (Math.random() - 0.5) * 540,
-        scale: 0.5,
-        opacity: 0,
-        duration: 1.1 + Math.random() * 0.5,
-        ease: 'power1.out',
-        onComplete: () => piece.remove(),
-      }
-    );
-  }
-}
-
-/* Whole-page rain, fired alongside the existing local burst/fan effects so
-   the celebration reads at the scale of the page, not just the card that
-   triggered it. Pieces spawn across the top edge of the viewport (not from
-   a single point, unlike confettiBurst above) and fall past the bottom with
-   drift + rotation, staggered so it reads as rain rather than one clump. */
+/* Whole-page rain, fired on checklist completion and "One more time" so the
+   celebration reads at the scale of the page rather than the small card
+   that triggered it (an earlier version emitted a burst from the card
+   itself instead — replaced by this once the full-page rain covered the
+   same moment better on its own). Pieces spawn across the top edge of the
+   viewport and fall past the bottom with drift + rotation, staggered so it
+   reads as rain rather than one clump landing at once. */
 const fullPageHost = document.querySelector('.confetti-fullpage');
 
 function fullPageConfettiBurst({ count = 160 } = {}) {
@@ -502,7 +480,6 @@ const stages = {
 const rows = [...sheet.querySelectorAll('[data-item]')];
 const counter = sheet.querySelector('[data-counter]');
 const completeBtn = sheet.querySelector('[data-complete]');
-const confettiHost = document.querySelector('.confetti-host');
 let resetTimer = null;
 
 function showStage(name) {
@@ -553,7 +530,6 @@ rows.forEach((row) => {
 completeBtn.addEventListener('click', () => {
   if (completeBtn.disabled) return;
   showStage('done');
-  confettiBurst(confettiHost);
   fullPageConfettiBurst();
   resetTimer = setTimeout(resetFlow, 6000);
 });
@@ -563,33 +539,6 @@ syncRunning();
 
 /* ---------------- one more confetti, please ---------------- */
 const confettiBtn = document.querySelector('.confetti-btn');
-const downloadConfettiHost = document.querySelector('.download__confetti');
 confettiBtn?.addEventListener('click', () => {
-  const rect = confettiBtn.getBoundingClientRect();
-  const hostRect = downloadConfettiHost.getBoundingClientRect();
-  downloadConfettiHost.style.setProperty('--ox', `${rect.left - hostRect.left + rect.width / 2}px`);
-  for (let i = 0; i < 36; i += 1) {
-    const piece = document.createElement('b');
-    piece.style.background = CONFETTI[i % CONFETTI.length];
-    piece.style.left = `${rect.left - hostRect.left + rect.width / 2}px`;
-    piece.style.top = `${rect.top - hostRect.top}px`;
-    downloadConfettiHost.appendChild(piece);
-    const angle = Math.PI * (1 + Math.random()); // upward fan
-    const distance = 90 + Math.random() * 180;
-    gsap.fromTo(
-      piece,
-      { x: 0, y: 0, scale: 1, opacity: 1 },
-      {
-        x: Math.cos(angle) * distance,
-        y: Math.sin(angle) * distance + 230,
-        rotation: (Math.random() - 0.5) * 640,
-        scale: 0.5,
-        opacity: 0,
-        duration: 1.3 + Math.random() * 0.6,
-        ease: 'power1.out',
-        onComplete: () => piece.remove(),
-      }
-    );
-  }
   fullPageConfettiBurst();
 });

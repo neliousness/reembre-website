@@ -817,25 +817,10 @@ h1 {
 .check-row.is-checked .check-row__box { background: var(--amber); border-color: var(--amber); }
 .check-row.is-checked .check-row__box svg { opacity: 1; transform: scale(1); }
 .check-row.is-checked b { text-decoration: line-through; text-decoration-color: rgba(215, 114, 38, 0.4); }
-.confetti-host {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: 38px;
-}
-.confetti-host b, .download__confetti b, .confetti-fullpage b {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-}
-/* Whole-page burst, fired alongside the local ones on checklist completion
-   and "One more time" — see src/main.js. Fixed to the viewport (not the
-   triggering card) and above everything, including the sticky header. */
+/* Whole-page burst, fired on checklist completion and "One more time" — see
+   src/main.js. Fixed to the viewport (not the triggering card) and above
+   everything, including the sticky header and the modal layer (z-index
+   100). */
 .confetti-fullpage {
   position: fixed;
   inset: 0;
@@ -844,6 +829,7 @@ h1 {
   overflow: hidden;
 }
 .confetti-fullpage b {
+  position: absolute;
   top: -12px;
   left: 0;
   width: 9px;
@@ -951,13 +937,6 @@ h1 {
   box-shadow: 0 10px 24px rgba(26, 26, 31, 0.08);
   will-change: transform;
 }
-.download__confetti {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
 /* ---------- footer support/privacy buttons ---------- */
 .footer__link {
   color: var(--muted);
