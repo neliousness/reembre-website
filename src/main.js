@@ -116,21 +116,26 @@ document.querySelectorAll('[data-waitlist]').forEach((form) => {
   });
 });
 
-/* ---------------- beta CTA guard ---------------- */
-// VITE_BETA_URL is baked into the href at build time. If it's unset (empty
-// or the literal placeholder), stop the button from silently reloading the
-// page and flag it clearly rather than shipping a dead link.
-document.querySelectorAll('[data-beta-cta]').forEach((cta) => {
-  const href = cta.getAttribute('href') || '';
-  const configured = href && href !== '#' && !href.startsWith('%');
-  if (!configured) {
+/* ---------------- store / beta CTA guard ---------------- */
+// The store and beta URLs are baked into their hrefs at build time. If one
+// is unset (empty, "#", or the literal %VITE_…% placeholder Vite leaves
+// behind), stop the button from silently reloading the page and flag it
+// clearly rather than shipping a dead link.
+function guardExternalCta(selector, envVar) {
+  document.querySelectorAll(selector).forEach((cta) => {
+    const href = cta.getAttribute('href') || '';
+    const configured = href && href !== '#' && !href.startsWith('%');
+    if (configured) return;
     cta.setAttribute('aria-disabled', 'true');
     cta.addEventListener('click', (event) => {
       event.preventDefault();
-      console.warn('[reembr] VITE_BETA_URL is not set — beta link is a placeholder.');
+      console.warn(`[reembr] ${envVar} is not set — link is a placeholder.`);
     });
-  }
-});
+  });
+}
+
+guardExternalCta('[data-store-cta]', 'VITE_APP_STORE_URL');
+guardExternalCta('[data-beta-cta]', 'VITE_BETA_URL');
 
 /* ---------------- modals (support + privacy) ---------------- */
 let lastFocusedBeforeModal = null;
