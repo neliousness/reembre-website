@@ -368,6 +368,12 @@
       </section>
     </main>
 
+    <!-- Full-viewport confetti layer, fired alongside the local bursts on
+         checklist completion and "One more time" — see confetti-fullpage-*
+         in src/main.js. Fixed + high z-index so it rains over the whole
+         page rather than being clipped to whichever card triggered it. -->
+    <div class="confetti-fullpage" aria-hidden="true"></div>
+
     <footer class="footer">
       <a class="site-logo" href="#top" aria-label="Reembr home">
         <img class="site-logo__mark" src="./logo.svg" alt="" width="27" height="26" />

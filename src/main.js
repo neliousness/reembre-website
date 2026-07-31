@@ -455,6 +455,44 @@ function confettiBurst(host, { count = 30, spread = 130, fall = 130 } = {}) {
   }
 }
 
+/* Whole-page rain, fired alongside the existing local burst/fan effects so
+   the celebration reads at the scale of the page, not just the card that
+   triggered it. Pieces spawn across the top edge of the viewport (not from
+   a single point, unlike confettiBurst above) and fall past the bottom with
+   drift + rotation, staggered so it reads as rain rather than one clump. */
+const fullPageHost = document.querySelector('.confetti-fullpage');
+
+function fullPageConfettiBurst({ count = 160 } = {}) {
+  if (!fullPageHost) return;
+  const viewportW = window.innerWidth;
+  const viewportH = window.innerHeight;
+  for (let i = 0; i < count; i += 1) {
+    const piece = document.createElement('b');
+    piece.style.background = CONFETTI[i % CONFETTI.length];
+    const startX = Math.random() * viewportW;
+    const startY = -20 - Math.random() * viewportH * 0.4;
+    piece.style.left = `${startX}px`;
+    piece.style.top = `${startY}px`;
+    fullPageHost.appendChild(piece);
+    const drift = (Math.random() - 0.5) * 240;
+    const fallDistance = viewportH - startY + 60 + Math.random() * 120;
+    gsap.fromTo(
+      piece,
+      { x: 0, y: 0, scale: 0.7 + Math.random() * 0.6, opacity: 1, rotation: Math.random() * 360 },
+      {
+        x: drift,
+        y: fallDistance,
+        rotation: `+=${(Math.random() - 0.5) * 900}`,
+        opacity: 0,
+        duration: 1.8 + Math.random() * 1.4,
+        delay: Math.random() * 0.45,
+        ease: 'power1.in',
+        onComplete: () => piece.remove(),
+      }
+    );
+  }
+}
+
 const sheet = document.querySelector('.sheet');
 const stages = {
   prompt: sheet.querySelector('.stage--prompt'),
@@ -516,6 +554,7 @@ completeBtn.addEventListener('click', () => {
   if (completeBtn.disabled) return;
   showStage('done');
   confettiBurst(confettiHost);
+  fullPageConfettiBurst();
   resetTimer = setTimeout(resetFlow, 6000);
 });
 
@@ -552,4 +591,5 @@ confettiBtn?.addEventListener('click', () => {
       }
     );
   }
+  fullPageConfettiBurst();
 });

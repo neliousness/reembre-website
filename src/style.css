@@ -825,12 +825,29 @@ h1 {
   overflow: hidden;
   border-radius: 38px;
 }
-.confetti-host b, .download__confetti b {
+.confetti-host b, .download__confetti b, .confetti-fullpage b {
   position: absolute;
   top: 42%;
   left: 50%;
   width: 8px;
   height: 8px;
+  border-radius: 2px;
+}
+/* Whole-page burst, fired alongside the local ones on checklist completion
+   and "One more time" — see src/main.js. Fixed to the viewport (not the
+   triggering card) and above everything, including the sticky header. */
+.confetti-fullpage {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confetti-fullpage b {
+  top: -12px;
+  left: 0;
+  width: 9px;
+  height: 9px;
   border-radius: 2px;
 }
 
