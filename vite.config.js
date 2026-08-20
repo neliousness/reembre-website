@@ -10,6 +10,7 @@ export default defineConfig({
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
         support: resolve(__dirname, 'support.html'),
+        accountDeletion: resolve(__dirname, 'account-deletion.html'),
       },
     },
   },
