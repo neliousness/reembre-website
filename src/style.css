@@ -34,6 +34,9 @@ html.lenis, html.lenis body { height: auto; }
 
 body {
   min-width: 320px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background:
     radial-gradient(circle at 12% 4%, rgba(244, 160, 36, 0.16), transparent 26rem),
     radial-gradient(circle at 88% 12%, rgba(215, 114, 38, 0.1), transparent 26rem),
@@ -45,6 +48,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+main { flex: 1 0 auto; }
 
 ::selection { background: var(--brand-soft); color: var(--text); }
 a { color: inherit; text-decoration: none; }
