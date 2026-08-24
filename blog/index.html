@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-launch="%VITE_LAUNCH_MODE%" style="--header-bg: 1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog · Reembr</title>
+    <meta name="description" content="Practical, no-nonsense advice on remembering your keys, wallet, and everything else before you walk out the door, from the team behind Reembr." />
+    <link rel="canonical" href="https://reembr.app/blog" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#fbf8f3" />
+
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:site_name" content="Reembr" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reembr.app/blog" />
+    <meta property="og:title" content="Blog · Reembr" />
+    <meta property="og:description" content="Practical, no-nonsense advice on remembering your keys, wallet, and everything else before you walk out the door." />
+    <meta property="og:image" content="https://reembr.app/og-image.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blog · Reembr" />
+    <meta name="twitter:description" content="Practical, no-nonsense advice on remembering your keys, wallet, and everything else before you walk out the door." />
+    <meta name="twitter:image" content="https://reembr.app/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Reembr Blog",
+        "url": "https://reembr.app/blog",
+        "description": "Practical advice on remembering your keys, wallet, and everything else before you walk out the door.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Reembr",
+          "logo": { "@type": "ImageObject", "url": "https://reembr.app/icon-512.png" }
+        }
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <style>
+      .blog-main { max-width: 760px; margin: 0 auto; padding: clamp(120px, 16vh, 160px) clamp(20px, 5vw, 24px) 100px; }
+      .blog-main h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.1rem, 5vw, 2.8rem); letter-spacing: -0.03em; margin-bottom: 10px; }
+      .blog-main > p.blog-intro { color: var(--secondary); font-size: 1.02rem; line-height: 1.55; margin-bottom: 40px; max-width: 56ch; }
+      .legal-back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 28px; }
+      .legal-back:hover { color: var(--brand); }
+      .blog-list { display: flex; flex-direction: column; gap: 4px; }
+      .blog-card {
+        display: block;
+        padding: 26px 4px;
+        border-top: 1.5px solid var(--border);
+        transition: transform 160ms ease;
+      }
+      .blog-list .blog-card:last-child { border-bottom: 1.5px solid var(--border); }
+      .blog-card:hover { transform: translateX(4px); }
+      .blog-card__meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+      .blog-card__tag {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--brand);
+        background: var(--brand-faint);
+        padding: 3px 10px;
+        border-radius: 999px;
+      }
+      .blog-card__date { color: var(--muted); font-size: 0.82rem; }
+      .blog-card h2 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+        letter-spacing: -0.015em;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+      .blog-card p { color: var(--secondary); font-size: 0.95rem; line-height: 1.5; max-width: 62ch; }
+      .blog-card__arrow { color: var(--brand); font-weight: 700; margin-left: 4px; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-logo" href="/" aria-label="Reembr home">
+        <img class="site-logo__mark" src="../logo.svg" alt="" width="31" height="30" />
+        <span class="site-logo__word">reembr</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/#how">How it works</a>
+        <a href="/#try">Try it</a>
+        <a href="/blog">Blog</a>
+      </nav>
+      <a class="site-header__button" href="/#download">
+        <span>Get the app</span>
+      </a>
+    </header>
+
+    <main class="blog-main">
+      <a class="legal-back" href="/">&larr; Back to reembr.app</a>
+      <h1>The Reembr blog</h1>
+      <p class="blog-intro">Notes on remembering your stuff before you're out the door, and why it's harder than it should be.</p>
+
+      <div class="blog-list">
+        <a class="blog-card" href="/blog/how-to-stop-forgetting-things-when-you-leave-the-house">
+          <div class="blog-card__meta">
+            <span class="blog-card__tag">Guide</span>
+            <span class="blog-card__date">August 24, 2026</span>
+          </div>
+          <h2>How to stop forgetting things when you leave the house<span class="blog-card__arrow">&rarr;</span></h2>
+          <p>Why "just remember" doesn't work, and what actually changes the outcome when you're halfway out the door.</p>
+        </a>
+
+        <a class="blog-card" href="/blog/what-is-a-geofence-reminder">
+          <div class="blog-card__meta">
+            <span class="blog-card__tag">Explainer</span>
+            <span class="blog-card__date">August 24, 2026</span>
+          </div>
+          <h2>What is a geofence reminder? A plain-English guide<span class="blog-card__arrow">&rarr;</span></h2>
+          <p>The technology behind reminders that trigger from your location, without your phone tracking or storing where you've been.</p>
+        </a>
+
+        <a class="blog-card" href="/blog/ways-to-remember-keys-wallet-charger-before-you-leave">
+          <div class="blog-card__meta">
+            <span class="blog-card__tag">Comparison</span>
+            <span class="blog-card__date">August 24, 2026</span>
+          </div>
+          <h2>5 ways to remember your keys, wallet, and charger before you leave<span class="blog-card__arrow">&rarr;</span></h2>
+          <p>From sticky notes to phone alarms to location-based reminders: what each one actually solves, and where they fall apart.</p>
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <a class="site-logo" href="/" aria-label="Reembr home">
+        <img class="site-logo__mark" src="../logo.svg" alt="" width="27" height="26" />
+        <span class="site-logo__word">reembr</span>
+      </a>
+      <p>For everyone who has ever done the doorway pat-down. &copy; 2026 Reembr.</p>
+      <nav aria-label="Footer">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </footer>
+
+    <script type="module" src="../src/main.js"></script>
+  </body>
+</html>
