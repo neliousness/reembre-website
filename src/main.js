@@ -14,7 +14,14 @@ const finePointer = window.matchMedia('(pointer: fine)').matches;
 document.documentElement.classList.toggle('reduced', reduced);
 document.documentElement.classList.toggle('js-anim', !reduced);
 
-createWorld(document.querySelector('#scene'), { reducedMotion: reduced });
+// Only the homepage carries the WebGL particle canvas. Pages without one
+// (legal pages, blog posts) skip it entirely rather than pass a null
+// canvas into Three.js, which throws before any of the code below runs,
+// silently disabling analytics and click tracking on that page too.
+const sceneCanvas = document.querySelector('#scene');
+if (sceneCanvas) {
+  createWorld(sceneCanvas, { reducedMotion: reduced });
+}
 initializeFirebase();
 
 /* ---------------- analytics ---------------- */
@@ -471,71 +478,78 @@ function fullPageConfettiBurst({ count = 160 } = {}) {
   }
 }
 
+// Only the homepage's "try it" section carries `.sheet`. Guard the whole
+// interactive-demo block on it existing, same reasoning as the `#scene`
+// canvas above: this used to run unconditionally and crash immediately
+// on any page without it, before the generic code further down (analytics,
+// click tracking, forms) ever got a chance to run.
 const sheet = document.querySelector('.sheet');
-const stages = {
-  prompt: sheet.querySelector('.stage--prompt'),
-  running: sheet.querySelector('.stage--running'),
-  done: sheet.querySelector('.stage--done'),
-};
-const rows = [...sheet.querySelectorAll('[data-item]')];
-const counter = sheet.querySelector('[data-counter]');
-const completeBtn = sheet.querySelector('[data-complete]');
-let resetTimer = null;
+if (sheet) {
+  const stages = {
+    prompt: sheet.querySelector('.stage--prompt'),
+    running: sheet.querySelector('.stage--running'),
+    done: sheet.querySelector('.stage--done'),
+  };
+  const rows = [...sheet.querySelectorAll('[data-item]')];
+  const counter = sheet.querySelector('[data-counter]');
+  const completeBtn = sheet.querySelector('[data-complete]');
+  let resetTimer = null;
 
-function showStage(name) {
-  Object.entries(stages).forEach(([key, element]) => {
-    element.hidden = key !== name;
-  });
-  sheet.dataset.stage = name;
-  if (!reduced) {
-    gsap.fromTo(stages[name], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: 'back.out(1.6)' });
-  }
-}
-
-function syncRunning() {
-  const checked = rows.filter((row) => row.classList.contains('is-checked')).length;
-  counter.textContent = `${checked} of ${rows.length}`;
-  const all = checked === rows.length;
-  completeBtn.disabled = !all;
-  completeBtn.textContent = all ? 'All set' : 'Mark as done';
-}
-
-function resetFlow() {
-  clearTimeout(resetTimer);
-  rows.forEach((row) => row.classList.remove('is-checked'));
-  syncRunning();
-  showStage('prompt');
-}
-
-sheet.querySelector('[data-start]').addEventListener('click', () => showStage('running'));
-
-sheet.querySelector('[data-notnow]').addEventListener('click', () => {
-  if (reduced) return;
-  gsap
-    .timeline()
-    .to(sheet, { y: 26, duration: 0.22, ease: 'power2.in' })
-    .to(sheet, { y: 0, duration: 0.55, ease: 'back.out(1.8)', delay: 0.3 });
-});
-
-rows.forEach((row) => {
-  row.addEventListener('click', () => {
-    row.classList.toggle('is-checked');
-    if (!reduced && row.classList.contains('is-checked')) {
-      gsap.fromTo(row, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: 'back.out(2.6)' });
+  const showStage = (name) => {
+    Object.entries(stages).forEach(([key, element]) => {
+      element.hidden = key !== name;
+    });
+    sheet.dataset.stage = name;
+    if (!reduced) {
+      gsap.fromTo(stages[name], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: 'back.out(1.6)' });
     }
+  };
+
+  const syncRunning = () => {
+    const checked = rows.filter((row) => row.classList.contains('is-checked')).length;
+    counter.textContent = `${checked} of ${rows.length}`;
+    const all = checked === rows.length;
+    completeBtn.disabled = !all;
+    completeBtn.textContent = all ? 'All set' : 'Mark as done';
+  };
+
+  const resetFlow = () => {
+    clearTimeout(resetTimer);
+    rows.forEach((row) => row.classList.remove('is-checked'));
     syncRunning();
+    showStage('prompt');
+  };
+
+  sheet.querySelector('[data-start]').addEventListener('click', () => showStage('running'));
+
+  sheet.querySelector('[data-notnow]').addEventListener('click', () => {
+    if (reduced) return;
+    gsap
+      .timeline()
+      .to(sheet, { y: 26, duration: 0.22, ease: 'power2.in' })
+      .to(sheet, { y: 0, duration: 0.55, ease: 'back.out(1.8)', delay: 0.3 });
   });
-});
 
-completeBtn.addEventListener('click', () => {
-  if (completeBtn.disabled) return;
-  showStage('done');
-  fullPageConfettiBurst();
-  resetTimer = setTimeout(resetFlow, 6000);
-});
+  rows.forEach((row) => {
+    row.addEventListener('click', () => {
+      row.classList.toggle('is-checked');
+      if (!reduced && row.classList.contains('is-checked')) {
+        gsap.fromTo(row, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: 'back.out(2.6)' });
+      }
+      syncRunning();
+    });
+  });
 
-sheet.querySelector('[data-close]').addEventListener('click', resetFlow);
-syncRunning();
+  completeBtn.addEventListener('click', () => {
+    if (completeBtn.disabled) return;
+    showStage('done');
+    fullPageConfettiBurst();
+    resetTimer = setTimeout(resetFlow, 6000);
+  });
+
+  sheet.querySelector('[data-close]').addEventListener('click', resetFlow);
+  syncRunning();
+}
 
 /* ---------------- one more confetti, please ---------------- */
 const confettiBtn = document.querySelector('.confetti-btn');
