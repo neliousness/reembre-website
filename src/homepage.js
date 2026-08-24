@@ -4,8 +4,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Draggable } from 'gsap/Draggable';
 import Lenis from 'lenis';
 import { createWorld } from './world.js';
-import { initializeFirebase, trackFirebaseEvent } from './firebase.js';
-import { resolveSupportEndpoint, validateSupportFields } from './support-form.js';
+import {
+  initializeFirebase,
+  trackEvent,
+  initAnalyticsListeners,
+  guardExternalCta,
+  initSupportForm,
+  waitlistEndpoint,
+  waitlistApiKey,
+} from './shared-core.js';
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -23,55 +30,13 @@ if (sceneCanvas) {
   createWorld(sceneCanvas, { reducedMotion: reduced });
 }
 initializeFirebase();
-
-/* ---------------- analytics ---------------- */
-function trackEvent(name, parameters = {}) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: name, ...parameters });
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', name, parameters);
-  }
-  if (typeof window.plausible === 'function') {
-    window.plausible(name, { props: parameters });
-  }
-  void trackFirebaseEvent(name, parameters);
-  window.dispatchEvent(new CustomEvent('reembr:analytics', {
-    detail: { name, parameters },
-  }));
-}
-
-document.querySelectorAll('[data-analytics-event]').forEach((element) => {
-  element.addEventListener('click', () => {
-    trackEvent(element.dataset.analyticsEvent, {
-      surface: element.dataset.analyticsSurface || 'unknown',
-      store: element.dataset.analyticsStore || 'unknown',
-    });
-  });
-});
-
-// Delegated UI-click logging: anything tagged with data-track logs a
-// `ui_click` (with its label) to analytics — incl. Firebase via trackEvent —
-// so we can see what people actually press. Works for elements added later.
-document.addEventListener(
-  'click',
-  (event) => {
-    const el = event.target.closest('[data-track]');
-    if (!el) return;
-    trackEvent('ui_click', { element: el.dataset.track });
-  },
-  { passive: true },
-);
+initAnalyticsListeners();
 
 /* ---------------- waitlist ---------------- */
-// Where signups land. Swap via VITE_WAITLIST_ENDPOINT — own backend
-// (e.g. /api/waitlist) or a third-party form URL. Left unset, the form
-// works as a no-op success so the page is still demoable in dev.
-const waitlistEndpoint = import.meta.env.VITE_WAITLIST_ENDPOINT || '';
-// Dedicated anti-abuse key for the signup endpoint. Sent as X-API-Key. This is
-// baked into the public bundle by design — it only filters casual bots and is
-// separate from the mobile app's key.
-const waitlistApiKey = import.meta.env.VITE_WAITLIST_API_KEY || '';
-
+// waitlistEndpoint / waitlistApiKey come from shared-core.js (also used by
+// the support form there) — swap the endpoint via VITE_WAITLIST_ENDPOINT,
+// own backend (e.g. /api/waitlist) or a third-party form URL. Left unset,
+// the form works as a no-op success so the page is still demoable in dev.
 document.querySelectorAll('[data-waitlist]').forEach((form) => {
   const input = form.querySelector('input[name="email"]');
   const button = form.querySelector('button[type="submit"]');
@@ -124,23 +89,7 @@ document.querySelectorAll('[data-waitlist]').forEach((form) => {
 });
 
 /* ---------------- store / beta CTA guard ---------------- */
-// The store and beta URLs are baked into their hrefs at build time. If one
-// is unset (empty, "#", or the literal %VITE_…% placeholder Vite leaves
-// behind), stop the button from silently reloading the page and flag it
-// clearly rather than shipping a dead link.
-function guardExternalCta(selector, envVar) {
-  document.querySelectorAll(selector).forEach((cta) => {
-    const href = cta.getAttribute('href') || '';
-    const configured = href && href !== '#' && !href.startsWith('%');
-    if (configured) return;
-    cta.setAttribute('aria-disabled', 'true');
-    cta.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.warn(`[reembr] ${envVar} is not set — link is a placeholder.`);
-    });
-  });
-}
-
+// guardExternalCta lives in shared-core.js (used by every page).
 guardExternalCta('[data-store-cta]', 'VITE_APP_STORE_URL');
 guardExternalCta('[data-beta-cta]', 'VITE_BETA_URL');
 
@@ -176,66 +125,9 @@ document.addEventListener('keydown', (event) => {
 });
 
 /* ---------------- support form ---------------- */
-// Shares the site's waitlist key; support lives at /api/support.
-const supportEndpoint = resolveSupportEndpoint({
-  supportEndpoint: import.meta.env.VITE_SUPPORT_ENDPOINT || '',
-  waitlistEndpoint,
-});
-
-const supportForm = document.querySelector('[data-support-form]');
-if (supportForm) {
-  const status = supportForm.querySelector('[data-support-status]');
-  const button = supportForm.querySelector('button[type="submit"]');
-  const setStatus = (message, kind) => {
-    status.textContent = message;
-    if (kind) status.dataset.kind = kind;
-    else delete status.dataset.kind;
-  };
-
-  supportForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const topic = supportForm.topic.value;
-    const email = supportForm.email.value.trim();
-    const message = supportForm.message.value.trim();
-    const validation = validateSupportFields({ topic, message });
-
-    if (!validation.ok) {
-      setStatus(validation.message, 'error');
-      supportForm[validation.field]?.focus();
-      return;
-    }
-
-    button.disabled = true;
-    setStatus('Sending…', 'pending');
-    trackEvent('support_submitted', { topic });
-
-    try {
-      if (supportEndpoint) {
-        const response = await fetch(supportEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(waitlistApiKey ? { 'X-API-Key': waitlistApiKey } : {}),
-          },
-          body: JSON.stringify({ topic, email, message }),
-        });
-        if (!response.ok) {
-          const payload = await response.json().catch(() => null);
-          throw new Error(payload?.error?.message || `HTTP ${response.status}`);
-        }
-      } else {
-        await new Promise((resolve) => setTimeout(resolve, 400));
-      }
-      supportForm.reset();
-      setStatus("Thanks, we got your message and will take a look.", 'success');
-      trackEvent('support_succeeded', { topic });
-    } catch (error) {
-      button.disabled = false;
-      setStatus('Something went wrong. Try again in a sec.', 'error');
-      trackEvent('support_failed', { topic, message: String(error) });
-    }
-  });
-}
+// initSupportForm lives in shared-core.js (used by every page); it's a
+// no-op if the page has no [data-support-form] element.
+initSupportForm();
 
 /* ---------------- smooth scroll + anchors ---------------- */
 let lenis = null;
