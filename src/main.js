@@ -82,7 +82,7 @@ document.querySelectorAll('[data-waitlist]').forEach((form) => {
     event.preventDefault();
     const email = input.value.trim();
     if (!email || !input.checkValidity()) {
-      setStatus('Hmm, that email looks off — mind checking it?', 'error');
+      setStatus('Hmm, that email looks off. Mind checking it?', 'error');
       input.focus();
       return;
     }
@@ -110,7 +110,7 @@ document.querySelectorAll('[data-waitlist]').forEach((form) => {
       trackEvent('waitlist_signup_succeeded', { surface, platform });
     } catch (error) {
       button.disabled = false;
-      setStatus('Something hiccuped — give it another try in a sec.', 'error');
+      setStatus('Something hiccuped. Give it another try in a sec.', 'error');
       trackEvent('waitlist_signup_failed', { surface, platform, message: String(error) });
     }
   });
@@ -220,11 +220,11 @@ if (supportForm) {
         await new Promise((resolve) => setTimeout(resolve, 400));
       }
       supportForm.reset();
-      setStatus("Thanks — we got your message and will take a look.", 'success');
+      setStatus("Thanks, we got your message and will take a look.", 'success');
       trackEvent('support_succeeded', { topic });
     } catch (error) {
       button.disabled = false;
-      setStatus('Something went wrong — try again in a sec.', 'error');
+      setStatus('Something went wrong. Try again in a sec.', 'error');
       trackEvent('support_failed', { topic, message: String(error) });
     }
   });
