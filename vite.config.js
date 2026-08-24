@@ -24,6 +24,10 @@ export default defineConfig({
           __dirname,
           'blog/ways-to-remember-keys-wallet-charger-before-you-leave.html',
         ),
+        blogArrivalChecklist: resolve(
+          __dirname,
+          'blog/remind-me-when-i-get-home.html',
+        ),
       },
     },
   },
