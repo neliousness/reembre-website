@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/ig",
+      "destination": "/?utm_source=instagram&utm_medium=bio_link&utm_campaign=dev-channel&utm_content=profile",
+      "permanent": false
+    }
+  ]
 }
