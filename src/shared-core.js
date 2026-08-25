@@ -8,6 +8,7 @@
 // invokes explicitly, so importing this file alone never touches the DOM.
 import { initializeFirebase, trackFirebaseEvent } from './firebase.js';
 import { resolveSupportEndpoint, validateSupportFields } from './support-form.js';
+import { attributionEventParams } from './attribution.js';
 
 // Where signups land: the waitlist forms and the /support endpoint mirrored
 // from it. Swap via VITE_WAITLIST_ENDPOINT — own backend (e.g.
@@ -43,6 +44,7 @@ export function initAnalyticsListeners() {
       trackEvent(element.dataset.analyticsEvent, {
         surface: element.dataset.analyticsSurface || 'unknown',
         store: element.dataset.analyticsStore || 'unknown',
+        ...attributionEventParams(),
       });
     });
   });

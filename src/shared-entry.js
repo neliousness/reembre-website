@@ -5,9 +5,12 @@
 // with the full homepage bundle (homepage.js).
 import './style.css';
 import { initializeFirebase, initAnalyticsListeners, guardExternalCta, initSupportForm } from './shared-core.js';
+import { captureAttribution, applyStoreAttribution } from './attribution.js';
 
 initializeFirebase();
 initAnalyticsListeners();
+captureAttribution();
+applyStoreAttribution('[data-store-cta]');
 guardExternalCta('[data-store-cta]', 'VITE_APP_STORE_URL');
 guardExternalCta('[data-beta-cta]', 'VITE_BETA_URL');
 initSupportForm();

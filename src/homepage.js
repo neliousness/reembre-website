@@ -13,6 +13,7 @@ import {
   waitlistEndpoint,
   waitlistApiKey,
 } from './shared-core.js';
+import { captureAttribution, applyStoreAttribution } from './attribution.js';
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -89,7 +90,11 @@ document.querySelectorAll('[data-waitlist]').forEach((form) => {
 });
 
 /* ---------------- store / beta CTA guard ---------------- */
-// guardExternalCta lives in shared-core.js (used by every page).
+// guardExternalCta lives in shared-core.js (used by every page). Attribution
+// rewrite must run first so the guard's "is this configured" check sees the
+// final href.
+captureAttribution();
+applyStoreAttribution('[data-store-cta]');
 guardExternalCta('[data-store-cta]', 'VITE_APP_STORE_URL');
 guardExternalCta('[data-beta-cta]', 'VITE_BETA_URL');
 
