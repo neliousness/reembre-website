@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Reembr</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #FBF8F3; color: #1F1A16;
+             font-family: Inter, system-ui, -apple-system, sans-serif; text-align: center; }
+      main { padding: 32px 24px; max-width: 420px; }
+      h1 { font-size: 28px; margin: 0 0 8px; }
+      p { color: #7A6E64; margin: 0 0 24px; line-height: 1.5; }
+      .stores { display: flex; flex-direction: column; gap: 12px; }
+      .stores a { display: block; padding: 14px 20px; border-radius: 999px; background: #D77226; color: #fff;
+                  text-decoration: none; font-weight: 700; }
+      .stores a.alt { background: #fff; color: #1F1A16; border: 1px solid #E4DCD2; }
+    </style>
+  </head>
+  <body>
+    <!-- Story link stickers point here: /get?utm_source=instagram&utm_medium=story&utm_campaign=...
+         Phones go straight to their store (with attribution); everyone else sees both buttons. -->
+    <main>
+      <h1>Get Reembr</h1>
+      <p data-get-status>Opening your app store…</p>
+      <div class="stores">
+        <a href="%VITE_APP_STORE_URL%" data-store-cta data-analytics-store="app_store" data-get-store="ios">Download on the App Store</a>
+        <a class="alt" href="https://play.google.com/store/apps/details?id=dev.dicemz.reembrapp" data-store-cta data-analytics-store="google_play" data-get-store="android">Get it on Google Play</a>
+      </div>
+    </main>
+    <script type="module" src="/src/get.js"></script>
+  </body>
+</html>
