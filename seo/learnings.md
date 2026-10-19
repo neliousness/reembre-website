@@ -12,7 +12,23 @@ date, what we saw, what we will do differently. Delete rules that stop being tru
   not rank for a new, low-authority domain.
 - Bump `updated` only for real content changes.
 
+- Re-verify every third-party product claim (other apps' features, OS menus) against a current
+  source before reusing it. Platform features get removed: Google Keep's location reminders
+  disappeared in 2025 and our how-to kept recommending them for weeks.
+
 ## Log
+
+### 2026-10-19: first loop run (Keep post + how-to refresh)
+
+- Confirmed Google Keep location reminders were removed in the Keep to Google Tasks move
+  (rollout from 2025-10-14, all accounts by January 2026). Two live posts recommended Keep.
+- Published `google-keep-location-reminders` (new) and refreshed
+  `how-to-set-a-location-reminder-iphone-android`; corrected the Keep claim in `best-apps-...`.
+- Kept them as two pages: the Keep query's SERP is news articles, the how-to query's SERP is
+  guides, with no overlap in the top results. They link to each other.
+- Measure from about 2026-11-16 (4 weeks): impressions and position for "google keep location
+  reminder" queries and for the how-to page before vs after the refresh.
+- Two screenshot TODOs left for the founder (Samsung Reminder, iPhone Reminders location screen).
 
 ### 2026-10-19: baseline
 

@@ -26,6 +26,8 @@ published:
     slug: best-apps-for-remembering-things-before-you-leave-the-house
     cluster: App comparisons
     published: 2026-09-09
+    updated: 2026-10-19
+    notes: 2026-10-19 corrected the Google Keep claim only. Title (66 chars) and description (166) still over limits; fix at next refresh.
   - keyword: does a geofence app track your location
     slug: does-a-geofence-app-track-your-location
     cluster: Privacy
@@ -34,29 +36,22 @@ published:
     slug: how-to-set-a-location-reminder-iphone-android
     cluster: Native-app troubleshooting
     published: 2026-09-09
-    status: refresh
-    notes: >-
-      Seed research saw reports that Google Keep location reminders were dropped in the
-      Keep-to-Tasks move. This post still gives Keep steps. Verify on a current Android phone
-      and refresh. Also thin (about 370 words).
+    updated: 2026-10-19
+    brief: seo/briefs/how-to-set-a-location-reminder-iphone-android.md
+    notes: Refreshed 2026-10-19 (Keep steps replaced, Samsung Reminder added, late-alert section). Needs an iPhone Reminders screenshot.
   - keyword: why do you forget things when you leave the house
     slug: why-do-you-forget-things-when-you-leave-the-house
     cluster: ADHD and forgetting
     published: 2026-09-09
+  - keyword: google keep location reminder
+    slug: google-keep-location-reminders
+    cluster: Native-app troubleshooting
+    published: 2026-10-19
+    brief: seo/briefs/google-keep-location-reminders.md
+    secondary: [google keep location reminder not working, google tasks location reminder, google assistant location reminders removed, what replaced google keep location reminders]
+    notes: Needs a Samsung Reminder screenshot (Arrive and Leave screen).
 
 ideas:
-  - keyword: google keep location reminder not working
-    slug: google-keep-location-reminders-removed-alternatives
-    cluster: Native-app troubleshooting
-    intent: informational
-    format: troubleshooting
-    priority: high
-    status: idea
-    signal: 9to5Google news on the Keep-to-Tasks migration, an Android Central forum thread, ad-heavy affiliate pages. No authoritative "what to use now" page.
-    angle: Say plainly what happened to location triggers, then show how to rebuild a leaving checklist on Android, including the battery and background-permission steps.
-    secondary: [google tasks location reminder, google assistant location reminders removed, what replaced google keep location reminders, location reminder app for android after google keep]
-    notes: Do together with the refresh of how-to-set-a-location-reminder-iphone-android so the two do not overlap.
-
   - keyword: iphone reminders location not working
     slug: iphone-location-reminders-not-working
     cluster: Native-app troubleshooting
@@ -268,3 +263,15 @@ ideas:
     signal: App Store listings (Nudge, Leave Smart), Product Hunt, IFTTT, a hackathon repo. Overlaps the published best-apps post.
     angle: Three trigger types (single notification, tick-off checklist, tracker alert) and which forgetting problem each solves.
     secondary: [app that reminds me when i leave home, leave home alert app, departure reminder app, geofence departure notification]
+
+  - keyword: samsung reminder app location
+    slug: samsung-reminder-location-reminders
+    cluster: Native-app troubleshooting
+    intent: informational
+    format: guide
+    priority: medium
+    status: idea
+    signal: "Found while researching the Keep post (2026-10-19): SamMobile is the main guide; Samsung Reminder is now the only first-party Android app with Arrive and Leave reminders."
+    angle: Tested walkthrough on a current Galaxy phone, including the battery and sleeping-apps settings that stop it firing, and its limits versus a per-place checklist.
+    secondary: [samsung reminder location not working, bixby location reminder, how to set location reminder on samsung, samsung reminder leave location]
+    notes: Needs real screenshots from a Galaxy phone. Check overlap with android-samsung-leave-reminder-not-triggering; they may be one post.

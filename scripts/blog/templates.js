@@ -161,6 +161,7 @@ const POST_STYLE = `
       .article-body p { color: var(--secondary); font-size: 1rem; line-height: 1.68; margin-bottom: 16px; }
       .article-body ol, .article-body ul { margin: 0 0 16px 1.3em; color: var(--secondary); font-size: 1rem; line-height: 1.68; }
       .article-body li { margin-bottom: 6px; }
+      .article-body a { color: var(--brand); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
       .article-body table { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 0.94rem; display: block; overflow-x: auto; }
       .article-body th, .article-body td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1.5px solid var(--border); color: var(--secondary); line-height: 1.5; }
       .article-body th { font-family: var(--display); font-weight: 700; color: var(--text); }

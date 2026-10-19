@@ -7,15 +7,17 @@ summary: An honest comparison of geofence and ADHD-friendly reminder apps, inclu
 keyword: apps for remembering things before you leave
 tag: Comparison
 published: 2026-09-09
+updated: 2026-10-19
 lede: A few apps now use your phone's geofencing to catch you on the way out, instead of relying on a note you'll stop reading or an alarm that fires at the wrong time. Here's an honest look at the main ones, including where we think we fit in.
 cta: Reembr is free, works on iPhone and Android, and every checklist, leaving or arriving, runs entirely on your phone. Save a place, attach a checklist, and stop turning back for your keys.
 surface: blog_best_apps_roundup
 related:
   - what-is-a-geofence-reminder
   - does-a-geofence-app-track-your-location
+  - google-keep-location-reminders
 faq:
   - q: Is there a free geofence reminder app?
-    a: Yes. Reembr is free to download and use, with geofence-based leaving and arrival checklists. Apple Reminders and Google Keep also offer basic location-based reminders for free on their respective platforms.
+    a: Yes. Reembr is free to download and use, with geofence-based leaving and arrival checklists. Apple Reminders on iPhone and Samsung's Reminder app on Galaxy phones also offer basic location-based reminders for free. Google Keep no longer does.
   - q: What's the difference between a geofence app and a location tracker?
     a: A geofence app only checks whether you've crossed one specific boundary and reacts when you do. A location tracker records your movements over time. Well-built geofence reminder apps, including Reembr, don't need or keep a history of where you've been.
 ---
@@ -40,9 +42,9 @@ A location-based checklist app with a wider net of built-in use cases than just 
 
 **Best for:** Apple-ecosystem households who want checklist templates for household routines beyond the classic keys-wallet-charger set, and who'd use the Watch integration.
 
-## Native options: Apple Reminders and Google Keep
+## Native options: Apple Reminders and Samsung Reminder
 
-Both let you set a single reminder tied to leaving or arriving at a location, for free, with nothing to install. Apple Reminders does this through Siri or the Reminders app directly; Google Keep offers a similar location trigger on a note.
+Both let you set a single reminder tied to leaving or arriving at a location, for free, with nothing to install. Apple Reminders does this through Siri or the Reminders app directly; on Samsung Galaxy phones, the built-in Reminder app has the same Arrive and Leave options. Google Keep used to offer a location trigger too, but [Google removed it](/blog/google-keep-location-reminders) when Keep's reminders moved into Google Tasks in late 2025, so other Android phones need a third-party app. Step-by-step instructions are in our guide to [setting a location-based reminder on iPhone and Android](/blog/how-to-set-a-location-reminder-iphone-android).
 
 **Best for:** a single one-off reminder, like "remind me to grab the dry cleaning when I leave work today." Neither is built for a recurring, multi-item checklist that runs every time you leave a place, which is the gap the dedicated apps above are built to fill.
 

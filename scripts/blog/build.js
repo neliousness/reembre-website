@@ -118,7 +118,9 @@ export async function buildBlog() {
       if (!target) throw new Error(`${post.slug}.md: related post "${slug}" does not exist`);
       return target;
     });
-    const html = renderPost(post, marked.parse(post.body), renderFaq(post.faq), related);
+    // HTML comments (e.g. screenshot TODOs) are notes for writers, not readers.
+    const body = post.body.replace(/<!--[\s\S]*?-->\n?/g, '');
+    const html = renderPost(post, marked.parse(body), renderFaq(post.faq), related);
     const out = join(OUT_DIR, `${post.slug}.html`);
     await writeFile(out, html);
     pages.push(out);
