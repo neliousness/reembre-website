@@ -1,52 +1,50 @@
-import { resolve } from 'node:path';
+import { basename, resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import { buildBlog, CONTENT_DIR } from './scripts/blog/build.js';
 
-export default defineConfig({
-  base: './',
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        checklist: resolve(__dirname, 'checklist.html'),
-        get: resolve(__dirname, 'get.html'),
-        privacy: resolve(__dirname, 'privacy.html'),
-        terms: resolve(__dirname, 'terms.html'),
-        support: resolve(__dirname, 'support.html'),
-        accountDeletion: resolve(__dirname, 'account-deletion.html'),
-        blog: resolve(__dirname, 'blog/index.html'),
-        blogForgettingThings: resolve(
-          __dirname,
-          'blog/how-to-stop-forgetting-things-when-you-leave-the-house.html',
-        ),
-        blogGeofenceExplainer: resolve(
-          __dirname,
-          'blog/what-is-a-geofence-reminder.html',
-        ),
-        blogWaysToRemember: resolve(
-          __dirname,
-          'blog/ways-to-remember-keys-wallet-charger-before-you-leave.html',
-        ),
-        blogArrivalChecklist: resolve(
-          __dirname,
-          'blog/remind-me-when-i-get-home.html',
-        ),
-        blogBestApps: resolve(
-          __dirname,
-          'blog/best-apps-for-remembering-things-before-you-leave-the-house.html',
-        ),
-        blogPrivacyExplainer: resolve(
-          __dirname,
-          'blog/does-a-geofence-app-track-your-location.html',
-        ),
-        blogNativeHowto: resolve(
-          __dirname,
-          'blog/how-to-set-a-location-reminder-iphone-android.html',
-        ),
-        blogWhyForget: resolve(
-          __dirname,
-          'blog/why-do-you-forget-things-when-you-leave-the-house.html',
-        ),
+// Regenerates the blog when a post changes during `npm run dev`.
+function blogContent() {
+  return {
+    name: 'blog-content',
+    configureServer(server) {
+      server.watcher.add(CONTENT_DIR);
+      const rebuild = async (file) => {
+        if (!file.startsWith(CONTENT_DIR)) return;
+        try {
+          await buildBlog();
+          server.ws.send({ type: 'full-reload' });
+        } catch (error) {
+          server.config.logger.error(`blog: ${error.message}`);
+        }
+      };
+      server.watcher.on('add', rebuild);
+      server.watcher.on('change', rebuild);
+      server.watcher.on('unlink', rebuild);
+    },
+  };
+}
+
+export default defineConfig(async () => {
+  const blogPages = await buildBlog();
+
+  return {
+    base: './',
+    plugins: [blogContent()],
+    build: {
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'index.html'),
+          checklist: resolve(__dirname, 'checklist.html'),
+          get: resolve(__dirname, 'get.html'),
+          privacy: resolve(__dirname, 'privacy.html'),
+          terms: resolve(__dirname, 'terms.html'),
+          support: resolve(__dirname, 'support.html'),
+          accountDeletion: resolve(__dirname, 'account-deletion.html'),
+          ...Object.fromEntries(
+            blogPages.map((page) => [`blog-${basename(page, '.html')}`, page]),
+          ),
+        },
       },
     },
-  },
+  };
 });
