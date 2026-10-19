@@ -9,7 +9,9 @@
     "test": "node --test src/*.test.js",
     "build": "vite build",
     "preview": "vite preview",
-    "blog:check": "node scripts/blog/check.js"
+    "blog:check": "node scripts/blog/check.js",
+    "seo:gsc": "node --env-file-if-exists=.env.local scripts/seo/gsc.js",
+    "seo:indexnow": "node scripts/seo/indexnow.js"
   },
   "dependencies": {
     "firebase": "^12.15.0",

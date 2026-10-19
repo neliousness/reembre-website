@@ -128,7 +128,8 @@ existing posts so it is not orphaned.
 4. Update the backlog entry: `status: drafted` (or `published` once the user approves and it
    ships), `slug`, `published` date, and a link to the brief.
 5. Report to the user: the keyword, the information gain in one line, the word count, any
-   checker warnings left, and any screenshot TODOs. Do not commit or push unless asked.
+   checker warnings left, and any screenshot TODOs. Do not commit or push unless asked;
+   the scheduled routine ships according to `seo/ROUTINES.md`.
 
 ## 6. Refresh mode
 
