@@ -5,6 +5,7 @@ headline: How to Stop Forgetting Things When You Leave the House
 description: "Why remembering your keys or wallet on the way out fails, and what actually works: a reminder tied to leaving itself instead of remembering earlier."
 socialDescription: Why remembering to grab your keys, wallet, or charger on your way out fails so often, and what actually helps.
 summary: Why "just remember" doesn't work, and what actually changes the outcome when you're halfway out the door.
+keyword: how to stop forgetting things when you leave the house
 tag: Guide
 published: 2026-08-24
 image: /blog/og-stop-forgetting-things.jpg

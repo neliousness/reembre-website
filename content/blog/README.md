@@ -5,7 +5,8 @@ One markdown file per post. The filename is the URL slug:
 
 `scripts/blog/build.js` turns these into `blog/<slug>.html`, `blog/index.html` and
 `public/sitemap.xml`. Those outputs are generated and gitignored: edit the markdown, never the HTML.
-`npm run dev` rebuilds on save; `npm run blog` builds once.
+`npm run dev` rebuilds on save; `npm run blog` builds once; `npm run blog:check` runs the quality gate.
+Writing a new post or refreshing one: follow `.claude/skills/blog-post/SKILL.md`.
 
 ## Frontmatter
 
@@ -17,6 +18,7 @@ headline: Optional longer schema headline                   # BlogPosting headli
 description: Meta description, ~150 chars.                  # also the schema description
 socialDescription: Shorter og/twitter description.
 summary: One or two sentences for the card on /blog.
+keyword: what is a geofence reminder                        # primary keyword from seo/keywords.yaml; checked by npm run blog:check
 tag: Explainer                                              # Explainer, Guide, How-to, Comparison, Privacy
 published: 2026-08-24                                       # YYYY-MM-DD
 updated: 2026-09-30                                         # optional; set when the post is meaningfully revised
@@ -36,6 +38,7 @@ draft: true                                                 # optional; skipped 
 ## Body
 
 Plain markdown starting at `##` (the H1 comes from `title`). Use `###` for subsections.
+GitHub-style tables work and are styled.
 For screenshots, use a raw HTML figure so width and height are set:
 
 ```html

@@ -93,13 +93,15 @@ ${urls.map(entry).join('\n')}
 `;
 }
 
+/** Parses every post in content/blog, drafts included. */
+export async function loadPosts() {
+  const files = (await readdir(CONTENT_DIR)).filter((f) => f.endsWith('.md') && f !== 'README.md');
+  return Promise.all(files.map(async (f) => parsePost(f, await readFile(join(CONTENT_DIR, f), 'utf8'))));
+}
+
 /** Generates every blog page and the sitemap. Returns the generated page paths. */
 export async function buildBlog() {
-  const files = (await readdir(CONTENT_DIR)).filter((f) => f.endsWith('.md') && f !== 'README.md');
-  const all = await Promise.all(
-    files.map(async (f) => parsePost(f, await readFile(join(CONTENT_DIR, f), 'utf8'))),
-  );
-  const posts = all
+  const posts = (await loadPosts())
     .filter((p) => !p.draft)
     .sort((a, b) => b.published.localeCompare(a.published) || a.slug.localeCompare(b.slug));
   const bySlug = new Map(posts.map((p) => [p.slug, p]));

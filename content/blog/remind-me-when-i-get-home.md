@@ -4,6 +4,7 @@ seoTitle: Remind Me When I Get Home (And What Not to Forget)
 description: How to set up a reminder that shows up after you get home, for chores that only make sense once you're actually there.
 socialDescription: A reminder that shows up after you get home, for the things that only make sense once you're actually there.
 summary: "Laundry, plants, trash night: the chores that only make sense once you're actually home, and how to get reminded of them right on arrival."
+keyword: remind me when i get home
 tag: Guide
 published: 2026-08-24
 image: /blog/og-arrival-checklist.jpg

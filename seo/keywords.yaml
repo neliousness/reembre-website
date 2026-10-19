@@ -1,0 +1,270 @@
+# Reembr blog keyword backlog. The blog-post skill picks from here and updates it.
+#
+# status: idea | briefed | drafted | published | refresh | skip
+# priority: high | medium | low  (no volume tool yet: priority comes from SERP weakness + fit)
+# signal: what the live SERP showed when researched. Re-check before writing; SERPs move.
+# Seed research: 2026-10-19 (WebSearch SERP review, no paid keyword data).
+
+published:
+  - keyword: how to stop forgetting things when you leave the house
+    slug: how-to-stop-forgetting-things-when-you-leave-the-house
+    cluster: Leaving checklists
+    published: 2026-08-24
+  - keyword: what is a geofence reminder
+    slug: what-is-a-geofence-reminder
+    cluster: Privacy
+    published: 2026-08-24
+  - keyword: remember your keys
+    slug: ways-to-remember-keys-wallet-charger-before-you-leave
+    cluster: Leaving checklists
+    published: 2026-08-24
+  - keyword: remind me when i get home
+    slug: remind-me-when-i-get-home
+    cluster: Arrival routines
+    published: 2026-08-24
+  - keyword: apps for remembering things before you leave
+    slug: best-apps-for-remembering-things-before-you-leave-the-house
+    cluster: App comparisons
+    published: 2026-09-09
+  - keyword: does a geofence app track your location
+    slug: does-a-geofence-app-track-your-location
+    cluster: Privacy
+    published: 2026-09-09
+  - keyword: location-based reminder
+    slug: how-to-set-a-location-reminder-iphone-android
+    cluster: Native-app troubleshooting
+    published: 2026-09-09
+    status: refresh
+    notes: >-
+      Seed research saw reports that Google Keep location reminders were dropped in the
+      Keep-to-Tasks move. This post still gives Keep steps. Verify on a current Android phone
+      and refresh. Also thin (about 370 words).
+  - keyword: why do you forget things when you leave the house
+    slug: why-do-you-forget-things-when-you-leave-the-house
+    cluster: ADHD and forgetting
+    published: 2026-09-09
+
+ideas:
+  - keyword: google keep location reminder not working
+    slug: google-keep-location-reminders-removed-alternatives
+    cluster: Native-app troubleshooting
+    intent: informational
+    format: troubleshooting
+    priority: high
+    status: idea
+    signal: 9to5Google news on the Keep-to-Tasks migration, an Android Central forum thread, ad-heavy affiliate pages. No authoritative "what to use now" page.
+    angle: Say plainly what happened to location triggers, then show how to rebuild a leaving checklist on Android, including the battery and background-permission steps.
+    secondary: [google tasks location reminder, google assistant location reminders removed, what replaced google keep location reminders, location reminder app for android after google keep]
+    notes: Do together with the refresh of how-to-set-a-location-reminder-iphone-android so the two do not overlap.
+
+  - keyword: iphone reminders location not working
+    slug: iphone-location-reminders-not-working
+    cluster: Native-app troubleshooting
+    intent: informational
+    format: troubleshooting
+    priority: high
+    status: idea
+    signal: Apple Community and MacRumors threads from 2019 to 2021, an AppleVis comment. No current, structured fix list.
+    angle: Ordered fix list (Location-Based Alerts, Home address, permission level, setting it before you leave), why leave triggers feel late, and when a leaving-checklist app is the better tool.
+    secondary: [iphone reminder when i leave not working, location based reminders not working ios, reminders app location alert never fires, why does my iphone location reminder go off late]
+
+  - keyword: why is my location reminder late
+    slug: why-location-reminders-fire-late
+    cluster: Native-app troubleshooting
+    intent: informational
+    format: explainer
+    priority: high
+    status: idea
+    signal: Only old forum threads. Google's Android location-battery doc says background geofence response is about two minutes since Android 8.
+    angle: Why a leave alert waits until you have moved a real distance, why Reembr does this on purpose (no pings from GPS noise at the door), iOS vs Android differences. Cite the Android doc.
+    secondary: [geofence delay android, location reminder goes off after i already left, how far do you have to be for a leave reminder, location reminder radius too small]
+
+  - keyword: adhd leaving the house checklist
+    slug: adhd-leaving-the-house-checklist
+    cluster: ADHD and forgetting
+    intent: informational
+    format: checklist
+    priority: high
+    status: idea
+    signal: Twinkl kids templates (account required), a Scribd upload, a Payhip product, App Store listings. Psych Central and ADDitude cover advice but no adult, copyable checklist.
+    angle: Adult checklist built on the launchpad and double-check habits Psych Central and ADDitude recommend; a phone prompt after you have moved away is the backup, not the fix. No medical claims.
+    secondary: [adhd checklist before leaving house, adhd door checklist, adhd keys wallet phone routine, how to remember everything when leaving the house adhd]
+
+  - keyword: before you go checklists alternative
+    slug: leaving-checklist-apps-compared
+    cluster: App comparisons
+    intent: commercial
+    format: comparison
+    priority: high
+    status: idea
+    signal: Only App Store and Product Hunt pages for Before You Go, Are We Set, LeftBehind, Paranoid List, Go Out Checklist. No independent comparison.
+    angle: Neutral table of trigger type (GPS leave, Wi-Fi, manual), what is free, whether data stays on-device; Reembr's tradeoff stated honestly (waits for real distance).
+    secondary: [are we set app alternative, leftbehind app, app that alerts you when you leave without your items, location based checklist app iphone]
+    notes: Check overlap with best-apps-for-remembering-things-before-you-leave-the-house first. If the SERPs overlap heavily, expand that post instead.
+
+  - keyword: samsung location reminders not triggering when leaving
+    slug: android-samsung-leave-reminder-not-triggering
+    cluster: Native-app troubleshooting
+    intent: informational
+    format: troubleshooting
+    priority: high
+    status: idea
+    signal: Samsung Community thread (arrive works, leave does not), dontkillmyapp.com, SamMobile guides. Nothing specific to location reminders.
+    angle: "First-hand steps for Samsung and other aggressive-battery phones: unrestricted battery, location \"all the time\", adaptive battery. Matches the known One UI caveat."
+    secondary: [android geofence not working in background, battery optimization location reminder app, allow all the time location permission reminder app, dontkillmyapp samsung one ui]
+
+  - keyword: iphone shortcuts leave home automation reminder
+    slug: iphone-shortcuts-leave-home-reminder-vs-app
+    cluster: Native-app troubleshooting
+    intent: informational
+    format: guide
+    priority: medium
+    status: idea
+    signal: Small Substack post, a Guiding Tech listicle, Apple Community thread on Leave automations needing a tap (Run Immediately since iOS 17). Thin SERP.
+    angle: Build a Shortcuts Leave automation step by step, state its limits (no persistent checklist, no tick-off), compare with the same setup in Reembr.
+    secondary: [shortcuts automation leave location not running, iphone leave automation asks for confirmation, run immediately shortcuts automation ios, how to make iphone remind me to bring things when i leave]
+
+  - keyword: leaving the house checklist printable
+    slug: leaving-the-house-checklist-printable
+    cluster: Leaving checklists
+    intent: informational
+    format: template
+    priority: medium
+    status: idea
+    signal: Twinkl leads across regional domains; the rest is off-topic (RV, move-out, house-selling lists).
+    angle: Free printable plus the same list ready to copy into Reembr. Core (keys, wallet, phone, charger, badge) and add-ons (meds, gym bag, kid bag).
+    secondary: [before you leave the house checklist, going out checklist printable, door checklist for leaving home, essentials checklist keys wallet phone]
+    notes: Overlaps the existing /checklist page. Decide whether this is a post or an upgrade to /checklist.
+
+  - keyword: airtag vs location reminder app for forgetting keys
+    slug: airtag-vs-leaving-reminder-for-keys
+    cluster: App comparisons
+    intent: commercial
+    format: comparison
+    priority: medium
+    status: idea
+    signal: Product reviews (Gearbrain, NBC Select, ShopSavvy) disagree on AirTag leave-behind alerts; a MacPowerUsers thread. Nobody frames trackers vs a leaving checklist.
+    angle: Trackers find lost things, a leaving checklist prevents leaving them. When each wins; Android has no AirTag.
+    secondary: [does airtag notify you when you leave something behind, tile vs airtag forgetting keys, how to stop leaving keys at home, key finder vs reminder app]
+
+  - keyword: adhd morning routine app out the door
+    slug: adhd-out-the-door-apps-and-leaving-checklists
+    cluster: ADHD and forgetting
+    intent: commercial
+    format: comparison
+    priority: medium
+    status: idea
+    signal: Joon's blog, a CHADD apps page, many App Store listings (AM Routine, ADHDOList, Dayful). Few neutral write-ups.
+    angle: Routine timers vs belongings checklists, and where Reembr fits (the "did I take it?" moment). Not a treatment.
+    secondary: [adhd apps to remember keys, adhd morning routine checklist, best app for adhd to leave on time, adhd reminder app that uses location]
+
+  - keyword: apple reminders vs todoist vs ticktick location reminders
+    slug: location-reminders-apple-todoist-ticktick-compared
+    cluster: App comparisons
+    intent: commercial
+    format: comparison
+    priority: medium
+    status: idea
+    signal: ClickUp, Any.do, generic listicles; sources disagree on whether Todoist location reminders are Pro-only (Todoist help page ranks).
+    angle: Source-linked table of leave vs arrive triggers, which plan includes them, platform limits; then what none of them do (a persistent tick-off checklist).
+    secondary: [does todoist free have location reminders, ticktick location reminder, best free location reminder app, apple reminders only works on iphone location]
+
+  - keyword: remember gym bag reminder
+    slug: how-to-remember-your-gym-bag
+    cluster: Leaving checklists
+    intent: informational
+    format: guide
+    priority: medium
+    status: idea
+    signal: Gym-brand blogs, a PDF, yougot.ai posts. Night-before reminder and pre-packed bag advice, none with a location prompt.
+    angle: Night-before packing habit plus a leaving-home checklist item, and a second list that runs when leaving the office.
+    secondary: [how to remember gym bag, gym bag checklist, forgot gym clothes again, reminder to bring workout clothes]
+
+  - keyword: forgot work badge reminder
+    slug: stop-forgetting-your-work-badge
+    cluster: Leaving checklists
+    intent: informational
+    format: guide
+    priority: medium
+    status: idea
+    signal: A yougot.ai article, a Remember the Milk blog, a GTD forum thread, App Store listings. Thin and generic.
+    angle: "A badge-and-laptop-bag routine: item on the home leaving list, plus an office list for the trip home."
+    secondary: [how to remember badge every morning, forgot id badge at home what to do, leaving for work checklist, reminder to take work laptop]
+
+  - keyword: location based checklist app no account privacy
+    slug: private-location-reminder-app
+    cluster: Privacy
+    intent: commercial
+    format: explainer
+    priority: medium
+    status: idea
+    signal: Only new App Store and Product Hunt pages (Nudge, Leave Smart) claim on-device or no account. No explainer compares privacy models.
+    angle: Plain-language comparison of on-device geofences, cloud geofences and Wi-Fi triggers, with Reembr's "locations never leave the phone". Reembr does have accounts, so do not target "no account".
+    secondary: [location reminder app without account, on-device geofence, app that doesn't share location reminders, is location based reminder safe]
+    notes: Check overlap with does-a-geofence-app-track-your-location before writing.
+
+  - keyword: location permission always vs while using app reminders
+    slug: location-permission-always-vs-while-using-reminders
+    cluster: Privacy
+    intent: informational
+    format: explainer
+    priority: medium
+    status: idea
+    signal: Apple Community and MacRumors threads show confusion about While Using vs Always. Android docs cover mechanics, not the user's question.
+    angle: What each permission lets a leaving-checklist app do, why background access is needed to notice you left, how to review or revoke it on both platforms.
+    secondary: [allow all the time location android safe, ios always allow location reminders, why does reminder app need background location, precise location needed for reminders]
+
+  - keyword: did i lock the door reminder after leaving
+    slug: did-i-lock-the-door-reminder
+    cluster: Leaving checklists
+    intent: informational
+    format: guide
+    priority: medium
+    status: idea
+    signal: LeaveLight (App Store), Wallflower stove monitor, IFTTT applets. Hardware and automation, no clear explainer.
+    angle: Reembr fires after you have moved some distance, so it is a "check before you go further" nudge, not a doorway prompt. Say so and pair it with a habit.
+    secondary: [remind me to check stove when leaving, forgot to lock door app, leaving home safety checklist, reminder to turn off iron]
+
+  - keyword: remind me to take medication when i leave the house
+    slug: medication-leaving-the-house-reminder
+    cluster: Leaving checklists
+    intent: informational
+    format: guide
+    priority: low
+    status: idea
+    signal: Medisafe help article on location snoozing, a UK assistive-tech page, the Nudge listing. Thin and product-specific.
+    angle: A "take your meds with you" checklist item, not dosing advice; point to a pharmacist for timing questions.
+    secondary: [reminder to bring medication when leaving home, medication checklist before leaving house, forgot pills at home app, pill reminder when i leave work]
+
+  - keyword: diaper bag checklist leaving house reminder
+    slug: diaper-bag-and-kid-bag-leaving-checklist
+    cluster: Leaving checklists
+    intent: informational
+    format: checklist
+    priority: low
+    status: idea
+    signal: Checklist.com, a Payhip product, a Flo Health article, Kid Bag Checker. No page combines a bag list with a location trigger.
+    angle: Parent leaving list (bags, bottles, spare clothes) plus a car-to-daycare list.
+    secondary: [school bag checklist reminder app, what to check before leaving house with a toddler, kid bag checker alternative, daycare drop-off checklist]
+
+  - keyword: location reminder when i arrive at work
+    slug: arrive-at-work-checklist-reminder
+    cluster: Arrival routines
+    intent: informational
+    format: guide
+    priority: low
+    status: idea
+    signal: Only App Store listings (TODO At, Checkmark). Empty of guides, but remind-me-when-i-get-home covers the pattern.
+    angle: Arrival lists for work or the gym, and how to avoid a prompt while still parking.
+    secondary: [remind me when i get to work, reminder when i arrive at the gym, arrive reminder iphone, location reminder when parking]
+
+  - keyword: app that reminds you when you leave a place
+    slug: leave-reminder-app-checklist-vs-notification
+    cluster: App comparisons
+    intent: commercial
+    format: explainer
+    priority: low
+    status: idea
+    signal: App Store listings (Nudge, Leave Smart), Product Hunt, IFTTT, a hackathon repo. Overlaps the published best-apps post.
+    angle: Three trigger types (single notification, tick-off checklist, tracker alert) and which forgetting problem each solves.
+    secondary: [app that reminds me when i leave home, leave home alert app, departure reminder app, geofence departure notification]

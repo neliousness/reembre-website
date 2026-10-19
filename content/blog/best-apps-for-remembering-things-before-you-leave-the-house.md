@@ -4,6 +4,7 @@ seoTitle: Best Apps for Remembering Things Before You Leave the House (2026)
 description: A comparison of geofence and ADHD-friendly reminder apps that catch what you'd forget on your way out the door, including Reembr, Where'd I Put It, and Before You Go.
 socialDescription: "Geofence and ADHD-friendly reminder apps compared: Reembr, Where'd I Put It, Before You Go, and the native options already on your phone."
 summary: An honest comparison of geofence and ADHD-friendly reminder apps, including Reembr, Where'd I Put It, Before You Go, and the native options already on your phone.
+keyword: apps for remembering things before you leave
 tag: Comparison
 published: 2026-09-09
 lede: A few apps now use your phone's geofencing to catch you on the way out, instead of relying on a note you'll stop reading or an alarm that fires at the wrong time. Here's an honest look at the main ones, including where we think we fit in.

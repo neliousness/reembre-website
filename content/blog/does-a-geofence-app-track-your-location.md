@@ -4,6 +4,7 @@ seoTitle: Does a Geofence Reminder App Track Your Location?
 description: How on-device geofence detection actually works, what data (if any) leaves your phone, and the specific questions worth asking before you trust an app with your location.
 socialDescription: How on-device geofence detection actually works, and the specific questions worth asking before you trust an app with your location.
 summary: How on-device detection works, what "0 coordinates on our servers" actually means, and the questions worth asking about any location app.
+keyword: does a geofence app track your location
 tag: Privacy
 published: 2026-09-09
 lede: "Fair question, and the honest answer is: it depends entirely on how the app is built. Here's what's actually happening under the hood, and how to tell the difference between an app that watches your boundaries and one that logs your life."

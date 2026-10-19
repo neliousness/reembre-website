@@ -4,6 +4,7 @@ seoTitle: How to Set a Location-Based Reminder on iPhone and Android
 description: "Step-by-step: setting a native location reminder in Apple Reminders and Google Keep, what their limits are, and when you need something that runs automatically instead."
 socialDescription: Step-by-step instructions for Apple Reminders and Google Keep, plus what to do once you outgrow a single reminder.
 summary: Step-by-step for Apple Reminders and Google Keep, and what to do once a single reminder isn't enough.
+keyword: location-based reminder
 tag: How-to
 published: 2026-09-09
 lede: Both phones already have a basic version of this built in. Here's exactly how to set one up on each, and what to expect once you're using it for real.

@@ -4,6 +4,7 @@ seoTitle: What Is a Geofence Reminder? A Plain-English Guide
 description: How geofence reminders detect when you arrive or leave a place, how they differ from location tracking, and what actually happens on your phone when one fires.
 socialDescription: How geofence reminders detect when you arrive or leave a place, and how they differ from location tracking.
 summary: The technology behind reminders that trigger from your location, without your phone tracking or storing where you've been.
+keyword: what is a geofence reminder
 tag: Explainer
 published: 2026-08-24
 image: /blog/og-geofence-explainer.jpg

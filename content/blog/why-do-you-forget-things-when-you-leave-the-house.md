@@ -4,6 +4,7 @@ seoTitle: Why Do You Forget Things When You Leave the House?
 description: "The actual psychology behind walking out without your keys: cognitive transition stress, the planning fallacy, and why willpower isn't the fix."
 socialDescription: Cognitive transition stress, the intervening thought, the planning fallacy, and why willpower isn't the fix.
 summary: "The actual psychology behind it: cognitive transition stress, the intervening thought, and why willpower was never going to be the fix."
+keyword: why do you forget things when you leave the house
 tag: Explainer
 published: 2026-09-09
 lede: It's not that you're careless. Leaving the house asks your brain to do something it's specifically bad at, and understanding why is more useful than just trying harder next time.
