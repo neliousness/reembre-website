@@ -26,8 +26,11 @@ published:
     slug: best-apps-for-remembering-things-before-you-leave-the-house
     cluster: App comparisons
     published: 2026-09-09
-    updated: 2026-10-19
-    notes: 2026-10-19 corrected the Google Keep claim only. Title (66 chars) and description (166) still over limits; fix at next refresh.
+    updated: 2026-10-20
+    brief: seo/briefs/best-apps-for-remembering-things-before-you-leave-the-house.md
+    status: drafted
+    secondary: [before you go checklists alternative, location based checklist app iphone, app that alerts you when you leave without your items, leaving checklist app android]
+    notes: 2026-10-20 refresh in PR PR_URL. Absorbed the leaving-checklist-apps-compared idea (same SERP), added a dated comparison table, removed Where'd I Put It (not findable on 2026-10-20), fixed title and description length.
   - keyword: does a geofence app track your location
     slug: does-a-geofence-app-track-your-location
     cluster: Privacy
@@ -91,11 +94,11 @@ ideas:
     intent: commercial
     format: comparison
     priority: high
-    status: idea
+    status: skip
     signal: Only App Store and Product Hunt pages for Before You Go, Are We Set, LeftBehind, Paranoid List, Go Out Checklist. No independent comparison.
     angle: Neutral table of trigger type (GPS leave, Wi-Fi, manual), what is free, whether data stays on-device; Reembr's tradeoff stated honestly (waits for real distance).
     secondary: [are we set app alternative, leftbehind app, app that alerts you when you leave without your items, location based checklist app iphone]
-    notes: Check overlap with best-apps-for-remembering-things-before-you-leave-the-house first. If the SERPs overlap heavily, expand that post instead.
+    notes: "2026-10-20: SERPs overlap heavily with best-apps-for-remembering-things-before-you-leave-the-house (same App Store listings rank for both). Merged into that post's refresh instead of a new page."
 
   - keyword: samsung location reminders not triggering when leaving
     slug: android-samsung-leave-reminder-not-triggering
