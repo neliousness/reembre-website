@@ -32,8 +32,8 @@ date, what we saw, what we will do differently. Delete rules that stop being tru
   weeks, the fix is links: from the homepage to specific posts (not only to /blog), and
   external mentions (Reddit answers, directories, the Instagram bio). More posts will not help
   until existing ones get crawled.
-- www.reembr.app redirects with a temporary 307. Change it to a permanent redirect in Vercel
-  domain settings so Google consolidates www and bare-domain signals.
+- www.reembr.app redirected with a temporary 307. Founder changed it to a permanent 308 in
+  Vercel on 2026-10-20 (verified live, paths preserved).
 
 ### 2026-10-19: first loop run (Keep post + how-to refresh)
 
