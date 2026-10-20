@@ -30,7 +30,7 @@ published:
     brief: seo/briefs/best-apps-for-remembering-things-before-you-leave-the-house.md
     status: drafted
     secondary: [before you go checklists alternative, location based checklist app iphone, app that alerts you when you leave without your items, leaving checklist app android]
-    notes: 2026-10-20 refresh in PR PR_URL. Absorbed the leaving-checklist-apps-compared idea (same SERP), added a dated comparison table, removed Where'd I Put It (not findable on 2026-10-20), fixed title and description length.
+    notes: 2026-10-20 refresh in PR https://github.com/neliousness/reembre-website/pull/1. Absorbed the leaving-checklist-apps-compared idea (same SERP), added a dated comparison table, removed Where'd I Put It (not findable on 2026-10-20), fixed title and description length.
   - keyword: does a geofence app track your location
     slug: does-a-geofence-app-track-your-location
     cluster: Privacy
