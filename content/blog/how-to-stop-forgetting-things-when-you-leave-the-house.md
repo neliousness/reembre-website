@@ -15,7 +15,7 @@ surface: blog_forgetting_things
 related:
   - why-do-you-forget-things-when-you-leave-the-house
   - ways-to-remember-keys-wallet-charger-before-you-leave
-  - best-apps-for-remembering-things-before-you-leave-the-house
+  - adhd-leaving-the-house-checklist
 faq:
   - q: Why doesn't a sticky note or checklist by the door work?
     a: It works for a week or two, then the note becomes part of the scenery. You've read it so many times your eyes slide past it without the words registering. A checklist only works if something makes you actually look at it at the right moment, and a note that's always there stops being a trigger.
