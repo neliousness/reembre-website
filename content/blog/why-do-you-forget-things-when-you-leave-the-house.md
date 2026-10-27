@@ -12,6 +12,7 @@ cta: Or skip the willpower part entirely. Reembr notices when you've left a save
 surface: blog_why_forget
 related:
   - how-to-stop-forgetting-things-when-you-leave-the-house
+  - adhd-leaving-the-house-checklist
   - best-apps-for-remembering-things-before-you-leave-the-house
 faq:
   - q: Why do I always feel like I've forgotten something when I leave the house?
@@ -40,7 +41,7 @@ A lot of what looks like forgetfulness is really routine mismatch. Most people r
 
 ## Where ADHD and executive function fit in
 
-All of the above happens to everyone sometimes. It happens more, and more consistently, for people with ADHD or other executive-function differences, because holding an intention steady through a distracting transition is exactly the kind of task those differences make harder. That's worth saying plainly: this is a real cognitive pattern, not a character flaw, and "just be more careful" was never going to be an effective fix for a working-memory problem.
+All of the above happens to everyone sometimes. It happens more, and more consistently, for people with ADHD or other executive-function differences, because holding an intention steady through a distracting transition is exactly the kind of task those differences make harder. That's worth saying plainly: this is a real cognitive pattern, not a character flaw, and "just be more careful" was never going to be an effective fix for a working-memory problem. If that is you, our [ADHD leaving the house checklist](/blog/adhd-leaving-the-house-checklist) is built around it.
 
 ## What actually helps
 
